@@ -18,14 +18,8 @@ params:
     enabled: false
 
   homeInfoParams:
-    Title: "👋 你好，欢迎来到「疯狂的键盘」"
-    Content: >
-      一个关于**软件开发**、**工具折腾**和**编程心得**的个人博客。
-      作者 Jidong，16年开发经验，AutoCAD 二次开发者。
-
-  socialIcons:
-    - name: github
-      url: "https://github.com/jidzhang"
+    Title: "疯狂的键盘"
+    Content: "爱软件爱开发"
 
 menu:
   main:
