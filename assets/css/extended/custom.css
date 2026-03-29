@@ -69,3 +69,12 @@ code {
     font-size: 0.8rem !important;
     opacity: 0.6;
 }
+
+/* 手机端文章页增加左右留白 */
+@media (max-width: 768px) {
+    .post-single .post-content,
+    .post-single .post-header {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+}
