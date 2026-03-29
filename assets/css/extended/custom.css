@@ -1,0 +1,8 @@
+/* Reduce gap between home info and post list */
+.first-entry {
+    margin-bottom: 0 !important;
+    padding-bottom: 8px !important;
+}
+.home-info + .posts {
+    margin-top: 0 !important;
+}

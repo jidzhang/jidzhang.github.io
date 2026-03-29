@@ -21,9 +21,7 @@ params:
     Title: "疯狂的键盘"
     Content: "爱软件爱开发"
 
-  socialIcons:
-    - name: github
-      url: "https://github.com/jidzhang"
+  # socialIcons removed - no icons on homepage
 
 menu:
   main:
