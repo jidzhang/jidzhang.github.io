@@ -1,19 +1,13 @@
-_site
-_theme_packages
-.jekyll-metadata
+# Hugo
+public/
+resources/_gen/
+.hugo_build.lock
 
-Thumbs.db
+# OS
 .DS_Store
+Thumbs.db
 
-!.gitkeep
-
-.rbenv-version
-.rvmrc
-
-*.un~
-
-*.bak
-
-.sass-cache
-
-nohup.out
+# Editor
+*.swp
+*.swo
+.vscode/
