@@ -1,4 +1,4 @@
----
+﻿---
 title: "把数组的前k位逆置:递归算法和迭代算法"
 date: 2015-03-19
 draft: false
@@ -9,7 +9,7 @@ categories:
 
 ## 把数组的前k位逆置
 
-{% highlight c %}
+```c
 /*
 * 逆置数组arr的前k位:
 * (1)递归实现
@@ -67,4 +67,4 @@ int main()
         printf("%d, ", array[i]);
     }
 }
-{% endhighlight %}
+```

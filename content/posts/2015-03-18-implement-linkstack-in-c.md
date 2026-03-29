@@ -1,4 +1,4 @@
----
+﻿---
 title: "用C语言实现简单的链式栈结构"
 date: 2015-03-18
 draft: false
@@ -8,7 +8,7 @@ categories:
 ---
 ## C语言实现简单的链式栈结构
 
-{% highlight c %}
+```c
 /*
  *  用链式存储结构实现的栈称为链栈。若链栈元素的数据类型为valuetype,以LinkStack记链栈结构，其类型定义为：
  * typedef struct node
@@ -84,4 +84,4 @@ int main()
     printf("\n");
 }
 
-{% endhighlight %}
+```

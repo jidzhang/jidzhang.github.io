@@ -1,4 +1,4 @@
----
+﻿---
 title: "C/C++ 安全释放指针的方法"
 date: 2015-03-10
 draft: false
@@ -9,7 +9,7 @@ categories:
 
 代码如下：
 
-{% highlight cpp %}
+```cpp
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	//system("pause"); 
 	return 0;
 }
-{% endhighlight %}
+```
 
 实现安全释放指针的机制正是上面的三个宏，其本质就是在释放了指针后，一定要及时地把指针置为NULL。
 

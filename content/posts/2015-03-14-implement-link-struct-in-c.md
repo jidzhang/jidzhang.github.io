@@ -1,4 +1,4 @@
----
+﻿---
 title: "用C语言实现一个简单链表数据结构"
 date: 2015-03-14
 draft: false
@@ -8,7 +8,7 @@ categories:
 ---
 ## 用C语言实现一个简单链表数据结构
 
-{% highlight c %}
+```c
 /*
 *  本程序实现了一个简单的单向链表，其中
 *  （1）函数 first_insert()的功能是在已知链表的首表元之前插入一个指定值的表元
@@ -75,4 +75,4 @@ int main()
 
     return 0;
 }
-{% endhighlight %}
+```

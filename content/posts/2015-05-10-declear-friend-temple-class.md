@@ -1,4 +1,4 @@
----
+﻿---
 title: "声明模板类为友元类"
 date: 2015-05-10
 draft: false
@@ -39,7 +39,7 @@ categories:
 
 下面列出源代码，及源代码下载：
 
-{% highlight cpp %}
+```cpp
 //friend.h
 #include <iostream>
 using namespace std;
@@ -87,7 +87,7 @@ int main()
 }
 
 //欢迎交流
-{% endhighlight %}
+```
 
 备注：
 

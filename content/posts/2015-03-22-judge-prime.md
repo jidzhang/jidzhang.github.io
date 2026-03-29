@@ -1,4 +1,4 @@
----
+﻿---
 title: "判断质数的小算法"
 date: 2015-03-22
 draft: false
@@ -10,7 +10,7 @@ categories:
 
 下面提供判断一个整数是否是质数的简单C实现:
 
-{% highlight c %}
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -39,7 +39,7 @@ int main()
         printf("\nPlease input an integer (Ctrl-Z to exit) : ");
     }
 }
-{% endhighlight %}
+```
 
 算法逻辑：
     Prime函数用来判断某个整数num是否是质数，是则返回非零整数，否则返回零。    Prime函数内部，首先定义一个num的中间数k，可以是num的一半，可以是num的平方根，当然也可以是原数，这里选取平方根，因为这样做效率更高。然后拿这个数k 与 num相除，同时k递减。如果num是质数，那么k在递减的过程中都不会整除num，直到k==1 ; 而如果num不是质数，那么就会找到num的一个非1的因数。

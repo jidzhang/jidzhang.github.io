@@ -1,4 +1,4 @@
----
+﻿---
 title: "Solaris 设置 locale"
 date: 2015-02-09
 draft: false
@@ -73,7 +73,7 @@ example:
 
 ## 附录：
 
-{% highlight bash %}
+```bash
 
 You can change your system locale on UNIX and Linux systems.
 You can set environment variables to control the system locale. You can set these variables to be system-wide, or on a per-session basis:
@@ -118,4 +118,4 @@ LANG=en_US.utf-8
 LC_ALL=en_US.utf-8
 Where en_US sets the language, and utf-8 sets the code page.
 
-{% endhighlight %}
+```

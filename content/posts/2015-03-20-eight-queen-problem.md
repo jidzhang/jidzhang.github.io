@@ -1,4 +1,4 @@
----
+﻿---
 title: "八皇后问题递归回溯算法实现"
 date: 2015-03-20
 draft: false
@@ -9,7 +9,7 @@ categories:
 
 ## 八皇后问题递归回溯算法实现
 
-{% highlight c %}
+```c
 
 /*
  * 八皇后问题递归回溯算法实现
@@ -103,4 +103,4 @@ int main()
 }
 
 
-{% endhighlight %}
+```

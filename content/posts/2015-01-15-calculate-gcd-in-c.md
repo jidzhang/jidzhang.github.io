@@ -1,4 +1,4 @@
----
+﻿---
 title: "最大公约数 C 语言实现"
 date: 2015-01-15
 draft: false
@@ -39,7 +39,7 @@ categories:
 
 欧几里得算法就依据这个公式：gcd(y,x)=gcd(y,y%x)，直到出现余数为零，这时的除数就是最后的最大公约数。
 
-{% highlight c %}
+```c
 
 /*C语言实现*/
 /*辗转相除法*/
@@ -80,7 +80,7 @@ int main()
     printf("The greatest common divisor of %d and %d is: %d\n",m,n,gcd(m,n));
     return 0;
 }
-{% endhighlight %}
+```
 
 （2）Stein算法
 
@@ -91,7 +91,7 @@ Stein算法利用下面的性质：
     gcd(a,a) = a，也就是一个数和他自身的公约数是其自身
     gcd(ka,kb) = k gcd(a,b)，也就是最大公约数运算和倍乘运算可以交换，特别的，当k=2时，说明两个偶数的最大公约数必然能被2整除
 
-{% highlight c %}
+```c
 
 /*C语言实现*/
 /*Stein算法*/
@@ -122,4 +122,4 @@ int main()
     printf("The greatest common divisor of %d and %d is: %d\n",m,n,gcd(m,n));
     return 0;
 }
-{% endhighlight %}
+```

@@ -1,4 +1,4 @@
----
+﻿---
 title: "二分法查找C语言实现"
 date: 2015-03-30
 draft: false
@@ -32,7 +32,7 @@ categories:
 
 但是，正如“编程珠玑”语言的，90%的程序员却不能在第一次写出无bug的二分查找算法，虽说二分查找的思想很简单，但一实现就不免有疏漏。下面提供一段本人用C写的二分查找算法。
 
-{% highlight c %}
+```c
 
 #include <stdio.h>
 /*
@@ -89,13 +89,13 @@ int main()
 
     return 0;
 }
-{% endhighlight %}
+```
 
 观察上面的b_search()函数，可以看到用递归的方式实现也会是一个很好的办法。
 
 递归实现：
 
-{% highlight c %}
+```c
 #include <stdio.h>
 
 /*
@@ -153,6 +153,6 @@ int main()
 
     return 0;
 }
-{% endhighlight %}
+```
 
 参考资料：[Binary search algorithm (From wikipedia)](http://en.wikipedia.org/wiki/Binary_search_algorithm)

@@ -1,4 +1,4 @@
----
+﻿---
 title: "PHP 实现网页压缩 — Enable compression"
 date: 2015-03-23
 draft: false
@@ -16,7 +16,7 @@ categories:
 
 在~/wp-content/themes/YourThemes下找到functions.php文件（我用的是默认主题twentyten，如果你的不是，那么应该查找与此类似的一个功能文件），然后在文件的最后添加下面的代码：
 
-{% highlight php %}
+```php
 /**
 * Plugin Name: WordPress Gzip Compression
 * Plugin URI:http://tribulant.com
@@ -31,6 +31,6 @@ function ezgz_buffer ()
 {
     ob_start('ob_gzhandler');
 }
-{% endhighlight %}
+```
 
 看到上面的注释了吗？这段代码就是从Plugin: WordPress Gzip Compression摘下来的。

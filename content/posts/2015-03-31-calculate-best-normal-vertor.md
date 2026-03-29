@@ -1,4 +1,4 @@
----
+﻿---
 title: "计算点集或多边形的最佳法向量"
 date: 2015-03-31
 draft: false
@@ -19,7 +19,7 @@ categories:
 
 算法实现代码（C++实现）：
 
-{% highlight cpp %}
+```cpp
 
 #include <cstdio>
 #include <cmath>
@@ -79,7 +79,7 @@ int main()
 
 }
 
-{% endhighlight %}
+```
 
 PS:本算法的通用性较高，甚至可以用于不共面的点集。
 

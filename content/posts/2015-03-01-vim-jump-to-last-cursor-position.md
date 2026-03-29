@@ -1,4 +1,4 @@
----
+﻿---
 title: "Vim自动跳到上次浏览文件时的位置"
 date: 2015-03-01
 draft: false
@@ -11,7 +11,7 @@ categories:
 
 该项控制命令写在$VIMRUNTIME/vimrc_example.vim下，可以把下面的命令拷贝到 `{$HOME}/.vimrc` 文件中，本方法尤其适用于Linux用户：
 
-{% highlight vim %}
+```vim
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
@@ -33,4 +33,4 @@ else
 	set autoindent   " always set autoindenting on
 
 endif " has("autocmd")
-{% endhighlight %}
+```

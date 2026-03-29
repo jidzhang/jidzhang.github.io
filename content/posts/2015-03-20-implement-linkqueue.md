@@ -1,4 +1,4 @@
----
+﻿---
 title: "用C语言实现简单链式队列结构"
 date: 2015-03-20
 draft: false
@@ -9,7 +9,7 @@ categories:
 
 ##用C语言实现简单链式队列结构
 
-{% highlight c %}
+```c
 /*
  * 用链式结构实现的队列称为链队。根据队列的FIFO原则，为了操作上的方便，可以用带头指针font和尾指针rear的单链表来实现队列。链队结构描述：
  * typedef struct node
@@ -106,4 +106,4 @@ int main()
     return 0;
 }
 
-{% endhighlight %}
+```

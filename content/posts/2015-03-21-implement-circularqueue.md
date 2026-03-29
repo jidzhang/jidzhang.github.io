@@ -1,4 +1,4 @@
----
+﻿---
 title: "用C语言实现简单循环队列结构"
 date: 2015-03-21
 draft: false
@@ -9,7 +9,7 @@ categories:
 
 ## 用C实现简单循环队列结构
 
-{% highlight c %}
+```c
 /*
  * 用C实现简单循环队列结构
  *
@@ -84,4 +84,4 @@ int main()
 
     return 0;
 }
-{% endhighlight %}
+```

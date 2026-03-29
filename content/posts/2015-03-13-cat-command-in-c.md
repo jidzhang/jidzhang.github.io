@@ -1,4 +1,4 @@
----
+﻿---
 title: "C语言实现Linux的cat命令"
 date: 2015-03-13
 draft: false
@@ -8,7 +8,7 @@ categories:
 ---
 模拟实现Linux系统中的cat命令
 
-{% highlight c %}
+```c
 /*
  *  filename: cat_file.c
  *  本程序模拟Linux系统中的cat程序，实现的功能：
@@ -45,5 +45,5 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-{% endhighlight %}
+```
 
