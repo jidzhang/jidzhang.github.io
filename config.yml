@@ -6,7 +6,7 @@ theme: PaperMod
 
 params:
   description: 爱软件爱开发
-  author: Jidong
+  author: Jid
   defaultTheme: auto
   ShowReadingTime: true
   ShowShareButtons: false
