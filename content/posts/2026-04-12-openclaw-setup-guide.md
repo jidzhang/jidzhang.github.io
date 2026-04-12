@@ -248,16 +248,166 @@ OpenClaw 内置 35+ 模型提供商，只需设置 API 密钥即可使用。
 }
 ```
 
-### 常用提供商一览
+### 国内模型提供商（重点推荐）
+
+> 如果你在中国大陆使用，以下模型可以直接访问，无需翻墙。OpenClaw 对国内模型的支持非常完善。
+
+#### 智谱 GLM（Z.AI）
+
+智谱 AI 的 GLM 系列是国内最成熟的 AI 模型之一，OpenClaw 原生支持。
+
+```bash
+# 国内区域（推荐）
+openclaw onboard --auth-choice zai-coding-cn
+
+# 或通用 API Key 设置
+openclaw onboard --auth-choice zai-api-key
+```
+
+```json5
+{
+  env: { ZAI_API_KEY: "sk-..." },
+  agents: { defaults: { model: { primary: "zai/glm-5.1" } } },
+}
+```
+
+| 模型 | 说明 |
+|------|------|
+| `zai/glm-5.1` | 最新旗舰，推荐 |
+| `zai/glm-5` | 旗舰版 |
+| `zai/glm-5-turbo` | 旗舰加速版 |
+| `zai/glm-5v-turbo` | 多模态版 |
+| `zai/glm-4.7` | 稳定版 |
+| `zai/glm-4.7-flash` | 快速版 |
+| `zai/glm-4.6` | 经典版 |
+
+API Key 获取：[open.bigmodel.cn](https://open.bigmodel.cn)
+
+#### DeepSeek
+
+DeepSeek 提供高性价比的 AI 模型，API 兼容 OpenAI 格式。
+
+```bash
+openclaw onboard --auth-choice deepseek-api-key
+```
+
+```json5
+{
+  env: { DEEPSEEK_API_KEY: "sk-..." },
+  agents: { defaults: { model: { primary: "deepseek/deepseek-chat" } } },
+}
+```
+
+| 模型 | 上下文 | 最大输出 | 说明 |
+|------|--------|----------|------|
+| `deepseek/deepseek-chat` | 131K | 8K | DeepSeek V3.2，默认 |
+| `deepseek/deepseek-reasoner` | 131K | 65K | 推理增强版 |
+
+API Key 获取：[platform.deepseek.com/api_keys](https://platform.deepseek.com/api_keys)
+
+#### Kimi（Moonshot / 月之暗面）
+
+Kimi K2 系列支持 256K 超长上下文，且当前免费（cost 标记为 0）。
+
+```bash
+# 国内端点
+openclaw onboard --auth-choice moonshot-api-key-cn
+
+# Kimi Coding（独立提供商，密钥不通用）
+openclaw onboard --auth-choice kimi-code-api-key
+```
+
+```json5
+{
+  env: { MOONSHOT_API_KEY: "sk-..." },
+  agents: { defaults: { model: { primary: "moonshot/kimi-k2.5" } } },
+}
+```
+
+| 模型 | 上下文 | 最大输出 | 说明 |
+|------|--------|----------|------|
+| `moonshot/kimi-k2.5` | 262K | 262K | 最新旗舰，免费 |
+| `moonshot/kimi-k2-thinking` | 262K | 262K | 推理版，免费 |
+| `moonshot/kimi-k2-thinking-turbo` | 262K | 262K | 推理加速版 |
+| `moonshot/kimi-k2-turbo` | 256K | 16K | 快速版 |
+
+> ⚠️ Moonshot 和 Kimi Coding 是**独立的提供商**，API Key 不通用。Moonshot 用 `moonshot/...`，Kimi Coding 用 `kimi/...`。
+
+API Key 获取：[platform.moonshot.cn](https://platform.moonshot.cn)
+
+#### MiniMax
+
+MiniMax M2.7 支持推理模式，提供 CN 端点。还内置图像生成、音乐生成、视频生成、网页搜索等功能。
+
+```bash
+# 国内 OAuth（Coding Plan，推荐）
+openclaw onboard --auth-choice minimax-cn-oauth
+
+# 国内 API Key
+openclaw onboard --auth-choice minimax-cn-api
+```
+
+| 模型 | 上下文 | 最大输出 | 说明 |
+|------|--------|----------|------|
+| `minimax/MiniMax-M2.7` | 204K | 131K | 推理旗舰 |
+| `minimax/MiniMax-M2.7-highspeed` | 204K | 131K | 高速版 |
+
+API Key 获取：[platform.minimax.io](https://platform.minimax.io)
+
+#### 火山引擎（豆包 / Volcengine）
+
+火山引擎提供豆包模型和第三方模型托管，支持通用和编码两种端点。
+
+```bash
+openclaw onboard --auth-choice volcengine-api-key
+```
+
+```json5
+{
+  env: { VOLCANO_ENGINE_API_KEY: "..." },
+  agents: { defaults: { model: { primary: "volcengine-plan/ark-code-latest" } } },
+}
+```
+
+| 模型 | 上下文 | 说明 |
+|------|--------|------|
+| `volcengine/doubao-seed-1-8-251228` | 256K | 豆包 Seed 1.8 |
+| `volcengine/kimi-k2-5-260127` | 256K | Kimi K2.5（火山托管） |
+| `volcengine/glm-4-7-251222` | 200K | GLM 4.7（火山托管） |
+| `volcengine/deepseek-v3-2-251201` | 128K | DeepSeek V3.2（火山托管） |
+| `volcengine-plan/ark-code-latest` | 256K | 编码计划默认 |
+
+> 火山引擎的通用端点和编码端点使用同一个 API Key，设置时自动注册两个。
+
+API Key 获取：[console.volcengine.com](https://console.volcengine.com)
+
+#### 阿里云（通义千问 / Qwen）
+
+```bash
+openclaw onboard --auth-choice qwen-standard-api-key
+```
+
+支持 Qwen 系列文本模型和 Wan 系列视频生成模型。API Key 获取：[dashscope.console.aliyun.com](https://dashscope.console.aliyun.com)
+
+#### 国内模型快速对比
+
+| 模型 | 提供商 | 上下文 | 免费额度 | 特色 |
+|------|--------|--------|----------|------|
+| GLM-5.1 | 智谱 | 128K | 有 | 原生支持，模型丰富 |
+| DeepSeek V3.2 | DeepSeek | 131K | 有 | 高性价比 |
+| Kimi K2.5 | 月之暗面 | 262K | ✅ 完全免费 | 超长上下文 |
+| MiniMax M2.7 | MiniMax | 204K | 有 | 推理+多模态+音乐 |
+| 豆包 Seed 1.8 | 火山引擎 | 256K | 有 | 第三方模型托管 |
+| 通义千问 | 阿里云 | 128K+ | 有 | 视频生成 |
+
+### 其他提供商
 
 | 提供商 | 认证变量 | 示例模型 |
 |--------|----------|----------|
 | OpenAI | `OPENAI_API_KEY` | `openai/gpt-5.4` |
 | Anthropic | `ANTHROPIC_API_KEY` | `anthropic/claude-opus-4-6` |
 | Google Gemini | `GEMINI_API_KEY` | `google/gemini-3.1-pro-preview` |
-| Z.AI (GLM) | `ZAI_API_KEY` | `zai/glm-5.1` |
 | OpenRouter | `OPENROUTER_API_KEY` | `openrouter/auto` |
-| DeepSeek | `DEEPSEEK_API_KEY` | `deepseek/deepseek-chat` |
 | Ollama | 无需密钥（本地） | `ollama/llama3.3` |
 
 ### API 密钥轮换
@@ -323,9 +473,120 @@ OpenClaw 支持同时连接多个聊天平台，所有通道通过统一 Gateway
 | IRC | 标准 IRC | `channels.irc` |
 | WebChat | 内置 Web 界面 | 通过 Gateway 访问 |
 
-### 插件通道（bundled plugins）
+### 国内聊天平台（重点推荐）
 
-飞书、Matrix、LINE、Microsoft Teams、QQ Bot、Zalo、Twitch、Nextcloud Talk、Nostr 等。
+> 如果你在中国大陆使用，以下平台无需翻墙即可使用。
+
+#### 飞书（Lark）
+
+飞书是 OpenClaw 内置支持的通道，使用 WebSocket 长连接，**无需公网 IP 或 Webhook**。
+
+**创建飞书应用：**
+
+1. 访问 [飞书开放平台](https://open.feishu.cn/app)，创建企业自建应用
+2. 在 **凭证与基础信息** 中复制 App ID 和 App Secret
+3. 在 **权限管理** 中点击批量导入（权限列表见官方文档）
+4. 在 **应用能力** > **机器人** 中启用机器人能力
+5. 在 **事件订阅** 中选择 **使用长连接接收事件**，添加事件 `im.message.receive_v1`
+6. 发布应用版本，等待审批
+
+**配置 OpenClaw：**
+
+```bash
+# 交互式配置
+openclaw channels add
+# 选择 Feishu，输入 App ID 和 App Secret
+```
+
+```json5
+{
+  channels: {
+    feishu: {
+      enabled: true,
+      dmPolicy: "pairing",
+      accounts: {
+        main: {
+          appId: "cli_xxx",
+          appSecret: "xxx",
+          name: "我的 AI 助手",
+        },
+      },
+    },
+  },
+}
+```
+
+**群聊配置：**
+
+```json5
+{
+  channels: {
+    feishu: {
+      groupPolicy: "allowlist",
+      groupAllowFrom: ["oc_xxx"],  // 群组 ID
+      groups: {
+        oc_xxx: {
+          allowFrom: ["ou_user1"],  // 允许的用户 ID
+        },
+      },
+    },
+  },
+}
+```
+
+飞书支持：文本、富文本、图片、文件、音频、视频、表情、**流式回复**（交互卡片）、文档评论触发、ACP 编码会话、多 Agent 路由。
+
+#### QQ Bot
+
+QQ Bot 通过官方 API（WebSocket 网关）连接，支持私聊、群聊 @消息、频道消息。
+
+**创建 QQ 机器人：**
+
+1. 访问 [QQ 开放平台](https://q.qq.com/)，手机 QQ 扫码登录
+2. 点击 **创建机器人**
+3. 在设置页复制 **AppID** 和 **AppSecret**
+
+**配置 OpenClaw：**
+
+```bash
+openclaw channels add --channel qqbot --token "AppID:AppSecret"
+```
+
+```json5
+{
+  channels: {
+    qqbot: {
+      enabled: true,
+      appId: "YOUR_APP_ID",
+      clientSecret: "YOUR_APP_SECRET",
+    },
+  },
+}
+```
+
+QQ Bot 支持：文本、图片、语音（STT/TTS）、视频、文件。内置命令：`/bot-ping`、`/bot-version`、`/bot-help`、`/bot-logs`。
+
+#### 企业微信（WeCom）
+
+通过插件支持，需安装社区插件。
+
+#### 微信（WeChat）
+
+通过插件支持，需安装社区插件。
+
+### 其他通道
+
+| 通道 | 说明 | 配置键 |
+|------|------|--------|
+| Discord | Bot API + Gateway | `channels.discord` |
+| Telegram | Bot API via grammY | `channels.telegram` |
+| WhatsApp | Baileys（需 QR 配对） | `channels.whatsapp` |
+| Signal | signal-cli | `channels.signal` |
+| Slack | Bolt SDK | `channels.slack` |
+| iMessage | BlueBubbles | `channels.bluebubbles` |
+| Matrix | 插件 | — |
+| LINE | 插件 | — |
+| Microsoft Teams | 插件 | — |
 
 ### 通道配置示例
 
@@ -335,13 +596,8 @@ OpenClaw 支持同时连接多个聊天平台，所有通道通过统一 Gateway
     telegram: {
       enabled: true,
       botToken: "123:abc",
-      dmPolicy: "pairing",   // pairing | allowlist | open | disabled
-      allowFrom: ["tg:123"],
-    },
-    whatsapp: {
       dmPolicy: "pairing",
-      allowFrom: ["+15555550123"],
-      groups: { "*": { requireMention: true } },
+      allowFrom: ["tg:123"],
     },
     discord: {
       enabled: true,
