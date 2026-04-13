@@ -70,16 +70,20 @@ code {
     opacity: 0.6;
 }
 
-/* 代码块：使用 onedark 配色 */
-.highlight pre, .highlight code, pre.chroma {
+/* 代码块：onedark 配色 */
+:root[data-theme='dark'],
+:root {
+    --code-block-bg: #282c34 !important;
+    --code-bg: #3e4451 !important;
+}
+
+.highlight pre, pre.chroma, .post-content pre code {
     background-color: #282c34 !important;
-    color: #abb2bf !important;
-    border-radius: 4px;
 }
 
 .post-content code {
     background-color: #3e4451 !important;
-    color: #abb2bf !important;
+    color: #e06c75 !important;
 }
 
 /* 手机端文章页增加左右留白 */
