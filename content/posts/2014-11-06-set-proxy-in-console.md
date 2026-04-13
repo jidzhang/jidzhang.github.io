@@ -7,11 +7,11 @@ categories:
   - "Linux"
 ---
 
-###前言
+### 前言
 在使用apt-get或git pull或wget的时候经常因为国内网络限制的原因而考虑使用代理服务器，
 这个时候就需要在命令行中设置代理，同时又不影响系统的代理设置。
 
-###方法
+### 方法
 可以通过三种方法设置代理服务器
 
 * 方法一
@@ -58,7 +58,7 @@ Acquire::http::Proxy "http://proxyAddress:port"
 
 保存apt.conf文件即可。
 
-###补充
+### 补充
 如果代理服务器需要登陆，这时可以直接把用户名和密码写进去
 ```bash
 http_proxy=http://userName:password@proxyAddress:port

@@ -18,12 +18,10 @@ categories:
 
 int main(int argc, char **argv) 
 { 
-```
-char* p = new char[100]; 
-SAFE_DELARR(p); 
-//system("pause"); 
-return 0;
-```
+  char* p = new char[100]; 
+  SAFE_DELARR(p); 
+  //system("pause"); 
+  return 0;
 }
 ```
 
