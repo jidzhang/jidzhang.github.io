@@ -8,14 +8,15 @@ categories:
 ---
 
 安装客户端、服务器:
-
-	sudo apt-get install mysql-server  (不必加版本号，ubuntu会自动安装最新版)
-
-	sudo apt-get install mysql-client  (其实这一步完全没必要，因为在安装mysql-server的时候会自动安装client)
+```bash
+sudo apt-get install mysql-server  # 不必加版本号，ubuntu会自动安装最新版
+sudo apt-get install mysql-client  # 其实这一步完全没必要，因为安装server时会自动安装client
+```
 
 如果需要用C写mysql程序，则还要安装开发库:
-
-	sudo apt-get install libmysqlclient-dev
+```bash
+sudo apt-get install libmysqlclient-dev
+```
 
 参考资料：
 

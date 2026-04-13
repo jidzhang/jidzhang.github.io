@@ -10,22 +10,19 @@ categories:
 Linux下解压安装tar.bz2文件
 
 下面所所有操作，后面有所有步骤说明
-
-	[yonghu@localhost ~]# su root
+```bash
+[yonghu@localhost ~]# su root
+```
 
 命令:                                        
-
-	[root@localhost ~]# cd /home/new/Desktop
-
-	[root@localhost Desktop]# tar jxvf fcitx-3.4.2.tar.bz2
-
-	[root@localhost Desktop]# cd /home/new/Desktop/fcitx-3.4.2
-
-	[root@localhost fcitx-3.4.2]# ./configure --prefix=/opt/fictx
-
-	[root@localhost fcitx-3.4.2]# make
-
-	[root@localhost fcitx-3.4.2]# make install
+```bash
+[root@localhost ~]# cd /home/new/Desktop
+[root@localhost Desktop]# tar jxvf fcitx-3.4.2.tar.bz2
+[root@localhost Desktop]# cd /home/new/Desktop/fcitx-3.4.2
+[root@localhost fcitx-3.4.2]# ./configure --prefix=/opt/fictx
+[root@localhost fcitx-3.4.2]# make
+[root@localhost fcitx-3.4.2]# make install
+```
 
 各步骤详解
 

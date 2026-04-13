@@ -17,41 +17,37 @@ Windows中默认的文件格式是GBK(gb2312)，而Linux一般都是UTF-8。
 
 在Linux中查看文件编码可以通过以下几种方式：
 
-1.在Vim中可以直接查看文件编码
-
-
-	:set fileencoding
-
+1. 在Vim中可以直接查看文件编码
+```vim
+:set fileencoding
+```
 
 即可显示文件编码格式。
-如果你只是想查看其它编码格式的文件或者想解决用Vim查看文件乱码的问题，那么你可以在
-~/.vimrc 文件中添加以下内容：
-
-	set encoding=utf-8
-	set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+如果你只是想查看其它编码格式的文件或者想解决用Vim查看文件乱码的问题，那么你可以在 `~/.vimrc` 文件中添加以下内容：
+```vim
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+```
 
 这样，就可以让vim自动识别文件编码（可以自动识别UTF-8或者GBK编码的文件），其实就是依照fileencodings提供的编码列表尝试，如果没有找到合适的编码，就用latin-1(ASCII)编码打开。
 
 
 ## 文件编码转换
 
-1. 在Vim中直接进行转换文件编码,比如将一个文件转换成utf-8格式
-
-	```
-	:set fileencoding=utf-8
-	```
+1. 在Vim中直接进行转换文件编码，比如将一个文件转换成utf-8格式
+```vim
+:set fileencoding=utf-8
+```
 
 2. iconv 转换，iconv的命令格式如下：
+```bash
+iconv -f encoding -t encoding inputfile
+```
 
-	```
-	iconv -f encoding -t encoding inputfile
-	```
-
-	比如将一个UTF-8 编码的文件转换成GBK编码
-
-	```
-	iconv -f GBK -t UTF-8 file1 -o file2
-	```
+比如将一个GBK编码的文件转换成UTF-8编码
+```bash
+iconv -f GBK -t UTF-8 file1 -o file2
+```
 
 ## 文件名编码转换:
 
@@ -61,24 +57,29 @@ Windows中默认的文件格式是GBK(gb2312)，而Linux一般都是UTF-8。
 
 首先看一下你的系统上是否安装了convmv,如果没安装的话用:
 
-	yum -y install convmv
+```bash
+yum -y install convmv
+```
 
 安装。
 
 下面看一下convmv的具体用法：
 
-	convmv -f 源编码 -t 新编码 [选项] 文件名
+```bash
+convmv -f 源编码 -t 新编码 [选项] 文件名
+```
 
 常用参数：
 
-	-r 递归处理子文件夹
-	--notest 真正进行操作，请注意在默认情况下是不对文件进行真实操作的，而只是试验。
-	--list 显示所有支持的编码
-	--unescap 可以做一下转义，比如把%20变成空格
+- `-r` 递归处理子文件夹
+- `--notest` 真正进行操作，请注意在默认情况下是不对文件进行真实操作的，而只是试验。
+- `--list` 显示所有支持的编码
+- `--unescap` 可以做一下转义，比如把%20变成空格
 
 比如我们有一个utf8编码的文件名，转换成GBK编码，命令如下：
-
-	convmv -f UTF-8 -t GBK --notest utf8编码的文件名
+```bash
+convmv -f UTF-8 -t GBK --notest utf8编码的文件名
+```
 
 这样转换以后"utf8编码的文件名"会被转换成GBK编码（只是文件名编码的转换，文件内容不会发生变化）
 

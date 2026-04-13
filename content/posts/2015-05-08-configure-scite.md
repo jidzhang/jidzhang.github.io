@@ -23,30 +23,30 @@ SciTe是一款很小巧又很强大的编辑器，非常适合程序员使用。
 或许你已经安装了Astyle，但我用的是原版Scite，所以需要单独安装Astyle。
 
 （3）编辑“选项”->“用户配置文件”或“本地配置文件”，加入以下代码：
+```
+#################
+#以下取自全局设置.properties
+#################
+#括号匹配模式
+#braces.sloppy=0
 
+#默认文件名后缀
+default.file.ext=.txt
 
-	#################
-	#以下取自全局设置.properties
-	#################
-	#括号匹配模式
-	#braces.sloppy=0
+#代码自动补全
+autocompleteword.automatic=1
 
-	#默认文件名后缀
-	default.file.ext=.txt
+#编辑窗口字体
+font.base=font:Courier New,size:12
 
-	#代码自动补全
-	autocompleteword.automatic=1
+#使用等宽字体
+font.monospace=font:Verdana,size:10
 
-	#编辑窗口字体
-	font.base=font:Courier New,size:12
+#################
+#以下取自cpp.properties
+#################
 
-	#使用等宽字体
-	font.monospace=font:Verdana,size:10
-
-	#################
-	#以下取自cpp.properties
-	#################
-
-	#To make the Go command both compile(if needed) and execute, use this setting:
-	#对C程序，运行脚本命令（即F5），可以在需要的时候先编译后执行，默认行为是只运行不编译。如果之前没有用Ctrl+F7编译过，则无法运行。
-	command.go.needs.*.c=gcc $(ccopts) -std=c99 $(FileNameExt) -o $(FileName)
+#To make the Go command both compile(if needed) and execute, use this setting:
+#对C程序，运行脚本命令（即F5），可以在需要的时候先编译后执行，默认行为是只运行不编译。如果之前没有用Ctrl+F7编译过，则无法运行。
+command.go.needs.*.c=gcc $(ccopts) -std=c99 $(FileNameExt) -o $(FileName)
+```

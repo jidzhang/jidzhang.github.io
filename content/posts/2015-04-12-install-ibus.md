@@ -8,7 +8,8 @@ categories:
 ---
 
 最小化安装需要：
-
-	install ibus ibus-pinyin ibus-table ibus-gtk
+```bash
+install ibus ibus-pinyin ibus-table ibus-gtk
+```
 
 然后，必须退出后重登录才能正常使用。

@@ -22,23 +22,28 @@ categories:
 如下（本文主要在Ubuntu下操作）：
 
 （1）向系统中添加PPA（即源），并更新
-
-	sudo add-apt-repository ppa:aitjcize/manpages-cpp
-	sudo apt-get update
+```bash
+sudo add-apt-repository ppa:aitjcize/manpages-cpp
+sudo apt-get update
+```
 
 （2）安装程序 manpages-cpp
-
-	sudo apt-get install manpages-cpp
+```bash
+sudo apt-get install manpages-cpp
+```
 
 （3）从Cplusplus网站上获取数据：这一步比较漫长，先去泡杯咖啡吧
-
-	cppman -c
+```bash
+cppman -c
+```
 
 （4）畅游cppman
-
-	cppman cout
-	cppman iterator
+```bash
+cppman cout
+cppman iterator
+```
 
  （5）获取帮助
-
-	cppman  --help
+```bash
+cppman  --help
+```

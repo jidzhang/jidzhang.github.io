@@ -21,7 +21,6 @@ OpenClaw 2026.3.31 把执行权限拆成了**两层**：
 ## 解决方案
 
 打开 `~/.openclaw/openclaw.json`，确保 `tools.exec` 同时配置这两项：
-
 ```json
 {
   "tools": {
@@ -37,14 +36,12 @@ OpenClaw 2026.3.31 把执行权限拆成了**两层**：
 - `security: "full"` —— 放开执行权限
 
 改完后执行：
-
 ```bash
 openclaw config validate
 openclaw gateway restart
 ```
 
 用一个最轻的命令验证：
-
 ```bash
 pwd
 ```

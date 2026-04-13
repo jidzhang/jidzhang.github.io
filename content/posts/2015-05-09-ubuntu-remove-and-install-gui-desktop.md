@@ -14,30 +14,36 @@ categories:
 ## 卸载桌面
 
 卸载gnome：
-
-	sudo apt-get --purge remove liborbit2
-	sudo apt-get autoremove
+```
+sudo apt-get --purge remove liborbit2
+sudo apt-get autoremove
+```
 
 卸载kde：
-
-	sudo apt-get --purge remove kdelibs4c2a libarts1c2a
-	sudo apt-get autoremove
+```
+sudo apt-get --purge remove kdelibs4c2a libarts1c2a
+sudo apt-get autoremove
+```
 
 卸载xfce4：
-
-	sudo apt-get --purge remove kdelibs4c2a libarts1c2a
-	sudo apt-get autoremove
+```
+sudo apt-get --purge remove kdelibs4c2a libarts1c2a
+sudo apt-get autoremove
+```
 
 ## 安装桌面
 
 安装gnome：
-
-	sudo apt-get install ubuntu-desktop
+```
+sudo apt-get install ubuntu-desktop
+```
 
 安装kde：
-
-	sudo apt-get install kubuntu-desktop
+```
+sudo apt-get install kubuntu-desktop
+```
 
 安装xfce4：
-
-	sudo apt-get install xubuntu-desktop
+```
+sudo apt-get install xubuntu-desktop
+```

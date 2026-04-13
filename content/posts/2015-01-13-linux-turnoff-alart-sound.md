@@ -10,8 +10,9 @@ categories:
 现在要关掉UNIX/Linux下的声音，尤其是在命令行下出现的嘟嘟报警声，可以用下面的命令：
 
 方法一：
-
-	echo “set bell-style none”>> ~/.inputrc
+```
+echo “set bell-style none”>> ~/.inputrc
+```
 
 然后logout、login即可生效
 

@@ -13,13 +13,13 @@ categories:
   确保有这一行 `sshd_enable="yes"`
 
 （3）最后配置sshd(守护进程)，编辑文件 `/etc/ssh/sshd_config`， 在文件后加入下面的三行
-
-	PermitRootLogin yes   #允许root
-
-	PermitEmptyPasswords no    #不允许空密码
-	PasswordAuthentication yes    #认证
-
+```bash
+PermitRootLogin yes   #允许root
+PermitEmptyPasswords no    #不允许空密码
+PasswordAuthentication yes    #认证
+```
 
 （4）激活sshd服务：
-
-	root#   /etc/rc.d/sshd  restart
+```bash
+root#   /etc/rc.d/sshd  restart
+```

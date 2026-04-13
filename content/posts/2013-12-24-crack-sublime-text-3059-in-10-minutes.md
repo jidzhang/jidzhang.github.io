@@ -45,61 +45,67 @@ categories:
 ![Text search](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_174231.png)
 
 - 现在程序跳到了.text:004C3FE2位置，这是一个很关键的函数，咱们对这个函数稍微分析一下，在IDA里面按F5，把汇编程序编译为C程序。
-    ![unregistered copy](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_174651.png)
-	![in c program](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_174936.png)
 
-    看到最顶上的if语句了吗？if (byte_788D90) ....     
+![unregistered copy](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_174651.png)
 
-    这个byte_788D90在源代码里叫做g_valid_license，现在知道这个全局变量有多重要了吧。    
-	下面就要对byte_788D90下手。
+![in c program](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_174936.png)
 
-- 切到IDA View-A 汇编窗口, 往上滚动屏幕，找到byte_788D90，在byte_788D90上右键，然后选X。打开byte_788D90引用窗口. 
-    ![xref to byte_788D90](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_175646.png)
+看到最顶上的if语句了吗？if (byte_788D90) ....
 
-    看到标记为w的条目，现在我鼠标双击第6行，跳到.text:0049DE29
-	![g_valid_license](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_183849.png)
+这个byte_788D90在源代码里叫做g_valid_license，现在知道这个全局变量有多重要了吧。
+下面就要对byte_788D90下手。
 
-	这一段是什么意思呢？    按F5，看到
+- 切到IDA View-A 汇编窗口, 往上滚动屏幕，找到byte_788D90，在byte_788D90上右键，然后选X。打开byte_788D90引用窗口。
 
-	![xx](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_184038.png)
+![xref to byte_788D90](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_175646.png)
 
-	这里的意思是byte_788D90的值要根据函数sub_4C35AD而重置
-	`byte_788D90 = sub_4C35AD() != 0 ? byte_788D90 : 0`    
-	我们要让这一句失效，就是把and byte_788D90, al改为nop nop nop nop nop nop .    
+看到标记为w的条目，现在我鼠标双击第6行，跳到.text:0049DE29
 
-	好，现在我们记下**and byte_788D90, al**的位置：**0049DE29**
+![g_valid_license](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_183849.png)
 
-- 从上一步我们还看到函数sub_4C35AD也很重要，在源代码里，它的名字叫`check_license_file()`。    
+这一段是什么意思呢？按F5，看到
 
-    这一步我们就动手改函数sub_4C35AD。
-	双击call sub_4C35AD，跳到函数里面。然后滚动鼠标往下拉，很快看到大片的这种执行判断的代码：      
-	![check_number](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_184959.png)，
+![xx](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_184038.png)
 
-	相信你已经猜到这里是干什么了。继续往下拉，一直到这个函数的返回位置:
-`
-    .text:004C3D12          mov     eax, edi
-	.text:004C3D14          call    sub_4F9CAE
-	.text:004C3D19          retn
-`
+这里的意思是byte_788D90的值要根据函数sub_4C35AD而重置
+`byte_788D90 = sub_4C35AD() != 0 ? byte_788D90 : 0`
+我们要让这一句失效，就是把and byte_788D90, al改为nop nop nop nop nop nop。
 
-    其中，**mov eax, edi**就是设置函数的返回值。我们要把eax强制置为0。文章最后我会解释为什么设置为0， 而不是1.     
-	记下这里的位置**004C3D12**.    
-    好了，现在找到要修改的位置，也知道改成什么样了，那现在就开始改可执行程序。
+好，现在我们记下**and byte_788D90, al**的位置：**0049DE29**
+
+- 从上一步我们还看到函数sub_4C35AD也很重要，在源代码里，它的名字叫`check_license_file()`。
+
+这一步我们就动手改函数sub_4C35AD。
+双击call sub_4C35AD，跳到函数里面。然后滚动鼠标往下拉，很快看到大片的这种执行判断的代码：
+
+![check_number](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_184959.png)
+
+相信你已经猜到这里是干什么了。继续往下拉，一直到这个函数的返回位置：
+```asm
+.text:004C3D12          mov     eax, edi
+.text:004C3D14          call    sub_4F9CAE
+.text:004C3D19          retn
+```
+
+其中，**mov eax, edi**就是设置函数的返回值。我们要把eax强制置为0。文章最后我会解释为什么设置为0，而不是1。
+记下这里的位置**004C3D12**。
+好了，现在找到要修改的位置，也知道改成什么样了，那现在就开始改可执行程序。
 
 修改可执行程序
 ----
 - 计算偏移值
 
-	刚才，我们记下了两个位置：0049DE29, 004C3D12        
-	现在我们要这样计算代码在文件中的偏移    
-	- 第一个偏移 ：49DE29 - 401000 + 400 = 9D229, 从这里开始的6个字符改为汇编nop，即90 90 90 90 90 90, **Linux的程序要改7个90**   
-	- 第二个偏移 ：4C3D12 - 401000 + 400 = C3112, 从这里开始的2个字符改为汇编xor eax, eax 即31C0
+刚才，我们记下了两个位置：0049DE29, 004C3D12
+现在我们要这样计算代码在文件中的偏移
+- 第一个偏移：49DE29 - 401000 + 400 = 9D229, 从这里开始的6个字符改为汇编nop，即90 90 90 90 90 90, **Linux的程序要改7个90**
+- 第二个偏移：4C3D12 - 401000 + 400 = C3112, 从这里开始的2个字符改为汇编xor eax, eax 即31C0
 
 - 用winhex打开sublime text可执行程序，按Alt+G，跳到上面的两个偏移位置 9D229和C3112，然后用键盘输入上面的十六进制代码
-    - 在9D229的位置开始输入6个90
-    - 在C3112的位置开始输入31C0
-	然后把文件另存，现在你另存的文件就是一个完美破解了的可执行程序，也许需要自己添加可执行权限。     
-	![DONE](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_192256.png)
+  - 在9D229的位置开始输入6个90
+  - 在C3112的位置开始输入31C0
+然后把文件另存，现在你另存的文件就是一个完美破解了的可执行程序，也许需要自己添加可执行权限。
+
+![DONE](https://dl.dropboxusercontent.com/u/6893139/images/sublime_text_3059_crack/2013-12-24_192256.png)
 
 最后
 ----

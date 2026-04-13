@@ -7,7 +7,6 @@ categories:
   - "Code"
 ---
 ## C语言实现简单的链式栈结构
-
 ```c
 /*
  *  用链式存储结构实现的栈称为链栈。若链栈元素的数据类型为valuetype,以LinkStack记链栈结构，其类型定义为：
@@ -83,5 +82,4 @@ int main()
     }
     printf("\n");
 }
-
 ```

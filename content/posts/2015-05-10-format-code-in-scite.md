@@ -8,18 +8,20 @@ categories:
 ---
 
 在 VC6.0 里很喜欢用 Alt+F8 的功能，它能够快速格式化代码，Scite中没有这个功能。今天看它的配置文件发现这么两行:
-
-	command.name.0.*.cxx=Indent
-	command.0.*.cxx=astyle -tapO $(FileNameExt)
+```
+command.name.0.*.cxx=Indent
+command.0.*.cxx=astyle -tapO $(FileNameExt)
+```
 
 用来缩进的? 查了一下 `astyle`, 原来我需要的就是这个功能.。
 
 下载 [astyle](astyle.sourceforge.net) 最新版, 解压之后把bin目录下的 AStyle.exe 复制到C:/windows，
 
 然后，修改一下配置文件 cpp.properties,（这一步可以忽略）， 如下:
-
-	command.name.0.*.cpp=Indent
-	command.0.*.cpp=astyle --style=ansi $(FileNameExt)
+```
+command.name.0.*.cpp=Indent
+command.0.*.cpp=astyle --style=ansi $(FileNameExt)
+```
 
 OK, 现在可以先选中文本然后`Ctrl+0`快速格式化代码了。
 

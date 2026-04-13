@@ -14,8 +14,9 @@ categories:
 比如把Trayconizer.exe直接放到c:\windows目录下。
 
 然后把vmware workstation的快捷方式的目标改为：
-
-	c:\windows\Trayconizer.exe "C:\Program Files\VMware\VMware Workstation\vmware.exe"
+```
+c:\windows\Trayconizer.exe "C:\Program Files\VMware\VMware Workstation\vmware.exe"
+```
 
 注 意：trayconizer.exe后面应该有一个空格。
 

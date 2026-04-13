@@ -20,15 +20,17 @@ categories:
 把windows调到第一项，并设置为默认项（Set as Default）。确定即可。
 
 （2）编辑 /boot/grub/menu.list
-
-	sudo vi /boot/grub/menu.list
+```bash
+sudo vi /boot/grub/menu.list
+```
 
 找到Windows行，类似下面的四行（）
-
-	###Don't change this comment - YaST2 identifier: Original name: windows###
-	title Windows
-	    rootnoverify (********)
-	    chainloader +1
+```bash
+###Don't change this comment - YaST2 identifier: Original name: windows###
+title Windows
+    rootnoverify (********)
+    chainloader +1
+```
 
 剪切到 title Desktop -- openSUSE 11.****这一行的注释行的前面，然后保存、退出，即可。
 

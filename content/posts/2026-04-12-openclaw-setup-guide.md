@@ -1,4 +1,4 @@
----
+﻿---
 title: "OpenClaw 完整配置教程：从安装到深度定制"
 date: 2026-04-12
 tags: ["OpenClaw", "AI助手", "配置教程"]
@@ -7,7 +7,9 @@ categories: ["技术教程"]
 
 # OpenClaw 完整配置教程：从安装到深度定制
 
-> 一站式 AI 助手网关，连接你的所有聊天平台，驱动你的智能工作流
+> 2026-04-13 修正错误
+
+OpenClaw 是一个开源的 AI 助手网关
 
 ## 什么是 OpenClaw
 
@@ -30,13 +32,11 @@ OpenClaw 是一个开源的 AI 助手网关（Gateway），它将大语言模型
 ### 推荐安装方式
 
 **macOS / Linux / WSL2：**
-
 ```bash
 curl -fsSL https://openclaw.ai/install.sh | bash
 ```
 
 **Windows (PowerShell)：**
-
 ```powershell
 iwr -useb https://openclaw.ai/install.ps1 | iex
 ```
@@ -44,7 +44,6 @@ iwr -useb https://openclaw.ai/install.ps1 | iex
 安装脚本会自动检测操作系统、安装 Node（如需要）、安装 OpenClaw 并启动引导流程。
 
 ### 其他安装方式
-
 ```bash
 # npm 全局安装
 npm install -g openclaw@latest
@@ -64,7 +63,6 @@ openclaw onboard --install-daemon
 ```
 
 ### 验证安装
-
 ```bash
 openclaw --version      # 确认 CLI 可用
 openclaw doctor         # 检查配置问题
@@ -76,7 +74,6 @@ openclaw gateway status # 验证 Gateway 运行状态
 ## 二、目录结构
 
 OpenClaw 的所有状态和配置集中在 `~/.openclaw/` 目录下：
-
 ```
 ~/.openclaw/
 ├── openclaw.json          # 主配置文件（JSON5 格式）
@@ -113,7 +110,6 @@ OpenClaw 的所有状态和配置集中在 `~/.openclaw/` 目录下：
 OpenClaw 使用 `~/.openclaw/openclaw.json` 作为主配置文件，支持 JSON5 格式（允许注释和尾逗号）。如果文件不存在，使用安全默认值。
 
 ### 最小配置
-
 ```json5
 // ~/.openclaw/openclaw.json
 {
@@ -123,7 +119,6 @@ OpenClaw 使用 `~/.openclaw/openclaw.json` 作为主配置文件，支持 JSON5
 ```
 
 ### 编辑配置的四种方式
-
 ```bash
 # 1. 交互式向导
 openclaw onboard       # 完整引导流程
@@ -151,7 +146,6 @@ Gateway 会监视配置文件并自动应用更改，无需手动重启。支持
 | `hot` | 仅热加载安全变更，需要重启时发出警告 |
 | `restart` | 任何变更都重启 Gateway |
 | `off` | 禁用文件监视，手动重启生效 |
-
 ```json5
 {
   gateway: {
@@ -161,7 +155,6 @@ Gateway 会监视配置文件并自动应用更改，无需手动重启。支持
 ```
 
 ### 拆分配置文件（$include）
-
 ```json5
 // ~/.openclaw/openclaw.json
 {
@@ -189,7 +182,6 @@ Gateway 会监视配置文件并自动应用更改，无需手动重启。支持
 | `OPENCLAW_GATEWAY_PASSWORD` | Gateway 密码 |
 
 ### 配置中的环境变量
-
 ```json5
 {
   // 内联环境变量
@@ -203,7 +195,6 @@ Gateway 会监视配置文件并自动应用更改，无需手动重启。支持
 ### 环境变量替换
 
 在任何配置字符串值中引用环境变量：
-
 ```json5
 {
   gateway: { auth: { token: "${OPENCLAW_GATEWAY_TOKEN}" } },
@@ -214,7 +205,6 @@ Gateway 会监视配置文件并自动应用更改，无需手动重启。支持
 ### 密钥引用（SecretRef）
 
 支持三种密钥来源：`env`（环境变量）、`file`（文件）、`exec`（命令执行）：
-
 ```json5
 {
   models: {
@@ -234,7 +224,6 @@ Gateway 会监视配置文件并自动应用更改，无需手动重启。支持
 OpenClaw 内置 35+ 模型提供商，只需设置 API 密钥即可使用。
 
 ### 设置主模型
-
 ```json5
 {
   agents: {
@@ -255,16 +244,13 @@ OpenClaw 内置 35+ 模型提供商，只需设置 API 密钥即可使用。
 #### 智谱 GLM（Z.AI）
 
 智谱 AI 的 GLM 系列是国内最成熟的 AI 模型之一，OpenClaw 原生支持。
-
 ```bash
 # 国内区域（推荐）
 openclaw onboard --auth-choice zai-coding-cn
 
 # 或通用 API Key 设置
 openclaw onboard --auth-choice zai-api-key
-```
-
-```json5
+json5
 {
   env: { ZAI_API_KEY: "sk-..." },
   agents: { defaults: { model: { primary: "zai/glm-5.1" } } },
@@ -286,12 +272,9 @@ API Key 获取：[open.bigmodel.cn](https://open.bigmodel.cn)
 #### DeepSeek
 
 DeepSeek 提供高性价比的 AI 模型，API 兼容 OpenAI 格式。
-
 ```bash
 openclaw onboard --auth-choice deepseek-api-key
-```
-
-```json5
+json5
 {
   env: { DEEPSEEK_API_KEY: "sk-..." },
   agents: { defaults: { model: { primary: "deepseek/deepseek-chat" } } },
@@ -308,16 +291,13 @@ API Key 获取：[platform.deepseek.com/api_keys](https://platform.deepseek.com/
 #### Kimi（Moonshot / 月之暗面）
 
 Kimi K2 系列支持 256K 超长上下文，且当前免费（cost 标记为 0）。
-
 ```bash
 # 国内端点
 openclaw onboard --auth-choice moonshot-api-key-cn
 
 # Kimi Coding（独立提供商，密钥不通用）
 openclaw onboard --auth-choice kimi-code-api-key
-```
-
-```json5
+json5
 {
   env: { MOONSHOT_API_KEY: "sk-..." },
   agents: { defaults: { model: { primary: "moonshot/kimi-k2.5" } } },
@@ -338,7 +318,6 @@ API Key 获取：[platform.moonshot.cn](https://platform.moonshot.cn)
 #### MiniMax
 
 MiniMax M2.7 支持推理模式，提供 CN 端点。还内置图像生成、音乐生成、视频生成、网页搜索等功能。
-
 ```bash
 # 国内 OAuth（Coding Plan，推荐）
 openclaw onboard --auth-choice minimax-cn-oauth
@@ -357,12 +336,9 @@ API Key 获取：[platform.minimax.io](https://platform.minimax.io)
 #### 火山引擎（豆包 / Volcengine）
 
 火山引擎提供豆包模型和第三方模型托管，支持通用和编码两种端点。
-
 ```bash
 openclaw onboard --auth-choice volcengine-api-key
-```
-
-```json5
+json5
 {
   env: { VOLCANO_ENGINE_API_KEY: "..." },
   agents: { defaults: { model: { primary: "volcengine-plan/ark-code-latest" } } },
@@ -382,7 +358,6 @@ openclaw onboard --auth-choice volcengine-api-key
 API Key 获取：[console.volcengine.com](https://console.volcengine.com)
 
 #### 阿里云（通义千问 / Qwen）
-
 ```bash
 openclaw onboard --auth-choice qwen-standard-api-key
 ```
@@ -413,7 +388,6 @@ openclaw onboard --auth-choice qwen-standard-api-key
 ### API 密钥轮换
 
 支持多个 API 密钥自动轮换（速率限制时切换）：
-
 ```bash
 # 环境变量设置
 OPENAI_API_KEYS="sk-xxx,sk-yyy,sk-zzz"
@@ -422,7 +396,6 @@ OPENAI_API_KEY_2="sk-yyy"
 ```
 
 ### 自定义/自托管提供商
-
 ```json5
 {
   models: {
@@ -446,7 +419,6 @@ OPENAI_API_KEY_2="sk-yyy"
 ```
 
 ### CLI 操作
-
 ```bash
 openclaw onboard --auth-choice openai-api-key  # 交互式设置
 openclaw models set anthropic/claude-opus-4-6  # 设置主模型
@@ -491,14 +463,11 @@ OpenClaw 支持同时连接多个聊天平台，所有通道通过统一 Gateway
 6. 发布应用版本，等待审批
 
 **配置 OpenClaw：**
-
 ```bash
 # 交互式配置
 openclaw channels add
 # 选择 Feishu，输入 App ID 和 App Secret
-```
-
-```json5
+json5
 {
   channels: {
     feishu: {
@@ -517,7 +486,6 @@ openclaw channels add
 ```
 
 **群聊配置：**
-
 ```json5
 {
   channels: {
@@ -547,12 +515,9 @@ QQ Bot 通过官方 API（WebSocket 网关）连接，支持私聊、群聊 @消
 3. 在设置页复制 **AppID** 和 **AppSecret**
 
 **配置 OpenClaw：**
-
 ```bash
 openclaw channels add --channel qqbot --token "AppID:AppSecret"
-```
-
-```json5
+json5
 {
   channels: {
     qqbot: {
@@ -574,22 +539,7 @@ QQ Bot 支持：文本、图片、语音（STT/TTS）、视频、文件。内置
 
 通过插件支持，需安装社区插件。
 
-### 其他通道
-
-| 通道 | 说明 | 配置键 |
-|------|------|--------|
-| Discord | Bot API + Gateway | `channels.discord` |
-| Telegram | Bot API via grammY | `channels.telegram` |
-| WhatsApp | Baileys（需 QR 配对） | `channels.whatsapp` |
-| Signal | signal-cli | `channels.signal` |
-| Slack | Bolt SDK | `channels.slack` |
-| iMessage | BlueBubbles | `channels.bluebubbles` |
-| Matrix | 插件 | — |
-| LINE | 插件 | — |
-| Microsoft Teams | 插件 | — |
-
 ### 通道配置示例
-
 ```json5
 {
   channels: {
@@ -617,7 +567,6 @@ QQ Bot 支持：文本、图片、语音（STT/TTS）、视频、文件。内置
 | `disabled` | 忽略所有 DM |
 
 ### 群组提及门控
-
 ```json5
 {
   channels: {
@@ -635,7 +584,6 @@ QQ Bot 支持：文本、图片、语音（STT/TTS）、视频、文件。内置
 ```
 
 ### 配对管理
-
 ```bash
 openclaw channels login                          # WhatsApp Web 登录
 openclaw pairing list whatsapp                   # 查看待审批配对
@@ -647,7 +595,6 @@ openclaw pairing approve whatsapp ABC123         # 审批配对码
 ## 七、工具集
 
 ### 工具配置概览
-
 ```json5
 {
   tools: {
@@ -690,7 +637,6 @@ openclaw pairing approve whatsapp ABC123         # 审批配对码
 支持 Brave、DuckDuckGo、Exa、Firecrawl、Gemini、Grok、Kimi、MiniMax、Perplexity、SearXNG、Tavily 等搜索引擎。
 
 ### 沙箱执行
-
 ```json5
 {
   agents: {
@@ -711,7 +657,6 @@ openclaw pairing approve whatsapp ABC123         # 审批配对码
 OpenClaw 使用 AgentSkills 兼容格式的技能文件夹来教 Agent 如何使用工具。
 
 ### 技能加载优先级
-
 ```
 <workspace>/skills（最高）→ <workspace>/.agents/skills → ~/.agents/skills
 → ~/.openclaw/skills → bundled skills → skills.load.extraDirs（最低）
@@ -720,7 +665,6 @@ OpenClaw 使用 AgentSkills 兼容格式的技能文件夹来教 Agent 如何使
 ### 技能格式
 
 每个技能是一个包含 `SKILL.md` 的文件夹：
-
 ```markdown
 ---
 name: image-lab
@@ -740,7 +684,6 @@ metadata:
 ```
 
 ### 技能配置
-
 ```json5
 {
   skills: {
@@ -756,7 +699,6 @@ metadata:
 ```
 
 ### Agent 技能白名单
-
 ```json5
 {
   agents: {
@@ -771,7 +713,6 @@ metadata:
 ```
 
 ### ClawHub 技能市场
-
 ```bash
 openclaw skills search "image"           # 搜索技能
 openclaw skills install <skill-slug>     # 安装技能
@@ -809,7 +750,6 @@ OpenClaw 通过纯 Markdown 文件实现跨会话记忆。
 ### 记忆搜索配置
 
 当配置了嵌入提供商时，`memory_search` 自动启用混合搜索。OpenClaw 自动检测可用的 API 密钥（OpenAI、Gemini、Voyage、Mistral）。
-
 ```bash
 openclaw memory status          # 检查索引状态
 openclaw memory search "查询"    # 搜索记忆
@@ -825,7 +765,6 @@ openclaw memory index --force   # 重建索引
 ## 十、定时任务（Cron）
 
 ### 配置
-
 ```json5
 {
   cron: {
@@ -838,7 +777,6 @@ openclaw memory index --force   # 重建索引
 ```
 
 ### CLI 操作
-
 ```bash
 # 一次性提醒
 openclaw cron add \
@@ -884,7 +822,6 @@ openclaw cron remove <jobId>
 | `current` | 绑定创建时的会话 |
 
 ### Webhook 集成
-
 ```json5
 {
   hooks: {
@@ -914,7 +851,6 @@ OpenClaw 支持将文本回复转为语音消息。
 | MiniMax | `MINIMAX_API_KEY` | T2A v2 API |
 
 ### 配置示例
-
 ```json5
 {
   messages: {
@@ -933,7 +869,6 @@ OpenClaw 支持将文本回复转为语音消息。
 ```
 
 ### Slash 命令
-
 ```
 /tts on           # 开启
 /tts off          # 关闭
@@ -951,7 +886,6 @@ OpenClaw 支持将文本回复转为语音消息。
 OpenClaw 假设**个人助手**部署模型：每个 Gateway 一个可信操作者。
 
 ### 快速安全审计
-
 ```bash
 openclaw security audit          # 基础审计
 openclaw security audit --deep   # 深度审计（含在线探测）
@@ -959,7 +893,6 @@ openclaw security audit --fix    # 自动修复常见问题
 ```
 
 ### Gateway 认证
-
 ```json5
 {
   gateway: {
@@ -989,7 +922,6 @@ Exec 审批是沙箱 Agent 在真实主机上执行命令的安全护栏：
 | `always` | 每条命令都提示 |
 
 ### 加固基线
-
 ```json5
 {
   gateway: {
@@ -1013,7 +945,6 @@ Exec 审批是沙箱 Agent 在真实主机上执行命令的安全护栏：
 ---
 
 ## 十三、多 Agent 路由
-
 ```json5
 {
   agents: {
@@ -1030,7 +961,6 @@ Exec 审批是沙箱 Agent 在真实主机上执行命令的安全护栏：
 ```
 
 每个 Agent 可以有独立的沙箱策略和工具权限：
-
 ```json5
 {
   agents: {
@@ -1054,7 +984,6 @@ Exec 审批是沙箱 Agent 在真实主机上执行命令的安全护栏：
 ## 十四、心跳（Heartbeat）
 
 定期让 Agent 主动检查：
-
 ```json5
 {
   agents: {
@@ -1073,7 +1002,6 @@ Exec 审批是沙箱 Agent 在真实主机上执行命令的安全护栏：
 ## 十五、常用命令速查
 
 ### 安装与初始化
-
 ```bash
 openclaw onboard --install-daemon     # 安装并引导
 openclaw setup                        # 初始化配置
@@ -1082,7 +1010,6 @@ openclaw doctor --fix                 # 自动修复
 ```
 
 ### Gateway 管理
-
 ```bash
 openclaw gateway status               # 查看状态
 openclaw gateway start                # 启动
@@ -1093,7 +1020,6 @@ openclaw logs --follow                # 查看实时日志
 ```
 
 ### 模型管理
-
 ```bash
 openclaw models list                  # 列出模型
 openclaw models set <provider/model>  # 设置主模型
@@ -1101,7 +1027,6 @@ openclaw models status --probe        # 检查认证状态
 ```
 
 ### 通道管理
-
 ```bash
 openclaw channels list                # 列出通道
 openclaw channels status --probe      # 检查通道健康
@@ -1111,7 +1036,6 @@ openclaw pairing approve <channel> <code>  # 审批配对
 ```
 
 ### 记忆管理
-
 ```bash
 openclaw memory status                # 记忆索引状态
 openclaw memory search "查询"          # 语义搜索
@@ -1119,7 +1043,6 @@ openclaw memory index --force         # 重建索引
 ```
 
 ### 定时任务
-
 ```bash
 openclaw cron list                    # 列出任务
 openclaw cron add --name "任务" ...   # 添加任务
@@ -1128,7 +1051,6 @@ openclaw cron remove <jobId>          # 删除任务
 ```
 
 ### 安全
-
 ```bash
 openclaw security audit               # 安全审计
 openclaw security audit --deep        # 深度审计
@@ -1136,7 +1058,6 @@ openclaw security audit --fix         # 自动修复
 ```
 
 ### 技能
-
 ```bash
 openclaw skills list                  # 列出技能
 openclaw skills search "关键词"        # 搜索技能
@@ -1145,7 +1066,6 @@ openclaw skills update --all          # 更新所有技能
 ```
 
 ### 配置操作
-
 ```bash
 openclaw config get <path>            # 读取配置
 openclaw config set <path> <value>    # 设置配置
@@ -1167,7 +1087,6 @@ openclaw config schema                # 输出 JSON Schema
 | Tailscale | 安全远程访问 |
 
 远程访问推荐使用 Tailscale：
-
 ```bash
 openclaw onboard --tailscale serve   # 通过 Tailscale Serve 暴露
 ```

@@ -32,26 +32,30 @@ Vim内部使用iconv库进行编码转换，如果这几个选项所设置的编
 4、具体应用环境的设置
 
 只编辑GBK编码的文件
-
-	set fileencodings=cp936
-	set fileencoding=cp936
-	set encoding=cp936
+```
+set fileencodings=cp936
+set fileencoding=cp936
+set encoding=cp936
+```
 
 只编辑UTF-8编码的中文文件
-
-	set fileencodings=utf-8
-	set fileencoding=utf-8
-	set encoding=cp936 "或者 set encoding=utf-8
+```
+set fileencodings=utf-8
+set fileencoding=utf-8
+set encoding=cp936 "或者 set encoding=utf-8
+```
 
 同时支持GBK和UTF-8编码
-
-	set fileencodings=ucs-bom,utf-8,cp936
-	set fileencoding=utf-8
-	set encoding=cp936 "或者 set encoding=utf-8
+```
+set fileencodings=ucs-bom,utf-8,cp936
+set fileencoding=utf-8
+set encoding=cp936 "或者 set encoding=utf-8
+```
 
 如果在终端环境下使用Vim，需要设置termencoding和终端所使用的编码一致。例如：
-
-	set termencoding=cp936 "或者 set termencoding=utf-8
+```
+set termencoding=cp936 "或者 set termencoding=utf-8
+```
 
 Windows记事本编辑UTF-8编码文件时会在文件头上加上三个字节的BOM：EFBBBF。如果fileencodings中设置ucs-bom的目的就是为了能够兼容用记事本编辑的文件，不需要的话可以去掉。Vim在保存UTF-8编码的文件时会去掉BOM。去掉BOM的最大好处是在Unix下能够使用cat a b>c来正确合并文件，这点经常被忽略。
 

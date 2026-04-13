@@ -12,33 +12,33 @@ categories:
 （1）模板类本身的声明要足够早，我指的是在被声明为友元类之前就进行了模板类的声明。
 
 比如：
-
-	template<typename T>
-	class AA
-	{
-	public:
-	         ……
-	private:
-	        ……
-	};
-
-	class BB
-	{
-	public:
-	      template<typename T> friend class AA;
-	……
-	 };
+```cpp
+template<typename T>
+class AA
+{
+public:
+         ……
+private:
+        ……
+};
+class BB
+{
+public:
+      template<typename T> friend class AA;
+……
+ };
+```
 
 （2）友元类声明时的格式，应该是这样：
-
-	template<typename T> friend class AA;
+```cpp
+template<typename T> friend class AA;
+```
 
     AA是之前已经声明的模板类。
 
 格式必须是这样，不然一定出错。
 
 下面列出源代码，及源代码下载：
-
 ```cpp
 //friend.h
 #include <iostream>
@@ -62,7 +62,6 @@ class BB
         void funcB();
         int tmp;
 };
-
 
 template<typename T>
 void AA<T>::funcA()

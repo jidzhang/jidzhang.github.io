@@ -10,9 +10,11 @@ categories:
 一、英文名称
 
 堆和栈是C/C++编程中经常遇到的两个基本概念。先看一下它们的英文表示：
-	
-	堆――heap
-	栈――stack
+```cpp
+
+堆――heap
+栈――stack
+```
 
 二、从数据结构和系统两个层次理解
 
@@ -91,22 +93,23 @@ stack：是自动分配变量，以及函数调用的时候所使用的一些空
 二、例子程序
 
 这是一个前辈写的，非常详细
-
-	//main.cpp
-	int a = 0; //全局初始化区
-	char *p1;  //全局未初始化区
-	main()
-	{
-		int b; //栈
-		char s[] = "abc"; //栈
-		char *p2; //栈
-		char *p3 = "123456"; //123456在常量区，p3在栈上。
-		static int c =0； //全局（静态）初始化区
-		p1 = (char *)malloc(10);
-		p2 = (char *)malloc(20);
-		//分配得来得10和20字节的区域就在堆区。
-		strcpy(p1, "123456"); //123456放在常量区，编译器可能会将它与p3所指向的"123456"优化成一个地方。
-	}
+```cpp
+//main.cpp
+int a = 0; //全局初始化区
+char *p1;  //全局未初始化区
+main()
+{
+	int b; //栈
+	char s[] = "abc"; //栈
+	char *p2; //栈
+	char *p3 = "123456"; //123456在常量区，p3在栈上。
+	static int c =0； //全局（静态）初始化区
+	p1 = (char *)malloc(10);
+	p2 = (char *)malloc(20);
+	//分配得来得10和20字节的区域就在堆区。
+	strcpy(p1, "123456"); //123456放在常量区，编译器可能会将它与p3所指向的"123456"优化成一个地方。
+}
+```
 
 
 二、堆和栈的理论知识
@@ -149,35 +152,38 @@ heap:
 堆：一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容有程序员安排。
 
 2.6存取效率的比较
-
-	char s1[] = "aaaaaaaaaaaaaaa";
-	char *s2 = "bbbbbbbbbbbbbbbbb";
+```cpp
+char s1[] = "aaaaaaaaaaaaaaa";
+char *s2 = "bbbbbbbbbbbbbbbbb";
+```
 
 aaaaaaaaaaa是在运行时刻赋值的；
 而bbbbbbbbbbb是在编译时就确定的；
 但是，在以后的存取中，在栈上的数组比指针所指向的字符串(例如堆)快。
 比如：
-
-	#include
-	void main()
-	{
-	char a = 1;
-	char c[] = "1234567890";
-	char *p ="1234567890";
-	a = c[1];
-	a = p[1];
-	return;
-	}
+```cpp
+#include
+void main()
+{
+char a = 1;
+char c[] = "1234567890";
+char *p ="1234567890";
+a = c[1];
+a = p[1];
+return;
+}
+```
 
 对应的汇编代码
-
-	10: a = c[1];
-	00401067 8A 4D F1 mov cl,byte ptr [ebp-0Fh]
-	0040106A 88 4D FC mov byte ptr [ebp-4],cl
-	11: a = p[1];
-	0040106D 8B 55 EC mov edx,dword ptr [ebp-14h]
-	00401070 8A 42 01 mov al,byte ptr [edx+1]
-	00401073 88 45 FC mov byte ptr [ebp-4],al
+```cpp
+10: a = c[1];
+00401067 8A 4D F1 mov cl,byte ptr [ebp-0Fh]
+0040106A 88 4D FC mov byte ptr [ebp-4],cl
+11: a = p[1];
+0040106D 8B 55 EC mov edx,dword ptr [ebp-14h]
+00401070 8A 42 01 mov al,byte ptr [edx+1]
+00401073 88 45 FC mov byte ptr [ebp-4],al
+```
 
 第一种在读取时直接就把字符串中的元素读到寄存器cl中，而第二种则要先把指edx中，在根据edx读取字符，显然慢了。
 

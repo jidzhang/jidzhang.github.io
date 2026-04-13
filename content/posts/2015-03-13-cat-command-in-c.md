@@ -7,7 +7,6 @@ categories:
   - "Code"
 ---
 模拟实现Linux系统中的cat命令
-
 ```c
 /*
  *  filename: cat_file.c

@@ -8,25 +8,32 @@ categories:
 ---
 
 (1) mkdir
-
-	mkdir -p /export/home/username
+```bash
+mkdir -p /export/home/username
+```
 
 (2) adduser
-
-	useradd -s /usr/bin/bash -d /export/home/username username
+```bash
+useradd -s /usr/bin/bash -d /export/home/username username
+```
 
 (3) set password
-	
-	passwd username
+```bash
+
+passwd username
+```
 
 (4) set home
-	
-	chown username /export/home/username
+```bash
+
+chown username /export/home/username
+```
 
 (5) check
-
-	vi /etc/passwd
-	check the last line
+```bash
+vi /etc/passwd
+check the last line
+```
 
 PS: more useradd usage should see : [solaris sysadmin guide](http://docs.oracle.com/cd/E19253-01/817-1985/userconcept-11407/index.html)
 

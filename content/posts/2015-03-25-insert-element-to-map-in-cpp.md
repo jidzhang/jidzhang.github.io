@@ -14,35 +14,37 @@ categories:
 * 当更新已经在map中的元素时，应优先选用operator[].
 
 首先解决一个问题：insert()更新元素？怎么用啊？确实可以用，就是看着很别扭而且效率不高。看下面的代码
-	
-	map<int,double> m;
-	m[1]=10.0;   //赋值
-	m[2]=11.0;   //赋值
-	m[3]=12.0;   //赋值
-	m[2]=18.0;  //更新
+```cpp
 
-	map<int, double> m2;
-	m2.insert(make_pair(1,10.0));     //赋值
-	m2.insert(make_pair(2,11.0));     //赋值
-	m2.insert(make_pair(3,12.0));     //赋值
-	m2.insert(make_pair(2,18.0)).first->second = 18;     //更新
+map<int,double> m;
+m[1]=10.0;   //赋值
+m[2]=11.0;   //赋值
+m[3]=12.0;   //赋值
+m[2]=18.0;  //更新
+map<int, double> m2;
+m2.insert(make_pair(1,10.0));     //赋值
+m2.insert(make_pair(2,11.0));     //赋值
+m2.insert(make_pair(3,12.0));     //赋值
+m2.insert(make_pair(2,18.0)).first->second = 18;     //更新
+```
 
 其次,有必要定义一个函数,实现向map中高效的添加或更新元素.
-
-	template<typename MapType,typename KeyArgType,typename ValueArgType>
-	typename MapType::iterator
-	effecient_add_update(MapType &m, KeyArgType const& k, ValueArgType const & v)
-	{
-	    typename MapType::iterator itrLB = m.lower_bound(k);
-	    if (itrLB != m.end() &&
-	       !(m.key_comp()(k,itrLB->first)) ){
-	        itrLB->second = v;
-	        return itrLB;
-	    }
-	    else{
-	        return m.insert(itrLB,make_pair(k,v));
-	    }
-	}
+```cpp
+template<typename MapType,typename KeyArgType,typename ValueArgType>
+typename MapType::iterator
+effecient_add_update(MapType &m, KeyArgType const& k, ValueArgType const & v)
+{
+    typename MapType::iterator itrLB = m.lower_bound(k);
+    if (itrLB != m.end() &&
+       !(m.key_comp()(k,itrLB->first)) ){
+        itrLB->second = v;
+        return itrLB;
+    }
+    else{
+        return m.insert(itrLB,make_pair(k,v));
+    }
+}
+```
 
 这个算法真的很有趣, 首先是算法的高效性, 其次是形式上的优美.
 

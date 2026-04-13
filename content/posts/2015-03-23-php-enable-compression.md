@@ -15,7 +15,6 @@ categories:
 本文提供手动修改配置文件实现压缩页面（怎么看效果呢？firefox 浏览器+开发工具firebug[开启net]）
 
 在~/wp-content/themes/YourThemes下找到functions.php文件（我用的是默认主题twentyten，如果你的不是，那么应该查找与此类似的一个功能文件），然后在文件的最后添加下面的代码：
-
 ```php
 /**
 * Plugin Name: WordPress Gzip Compression

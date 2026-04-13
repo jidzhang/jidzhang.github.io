@@ -11,18 +11,23 @@ categories:
 
 针对这个情况可以直接在命令行上停止这个服务并彻底删除或者通过hasp的运行时管理工具彻底删除hasp服务：
 
-###在命令行删除hasplms服务
+### 在命令行删除hasplms服务
 
 1. 通过开始菜单，打开命令行cmd
-2. 停止服务，并设置不自动启动。在命令行内依次输入下面两个命令
-		sc stop "hasplms"
-		sc config "hasplms" start=disabled
+2. 停止服务，并设置不自动启动。在命令行内依次输入下面两个命令：
+```bash
+sc stop "hasplms"
+sc config "hasplms" start=disabled
+```
+
 3. 删除服务
-		sc delete "hasplms"
+```bash
+sc delete "hasplms"
+```
 
 P.S. 这个方法用于普通用户直接快速的解决问题，而对于软件的发行者，更应该考虑怎么在软件卸载的时候把Hasplms服务彻底删除。
 
-###通过hasp运行时管理工具删除hasplms服务
+### 通过hasp运行时管理工具删除hasplms服务
 
 1. 首先到Sentinel官网下载HASP运行环境管理工具
 http://sentinelcustomer.safenet-inc.com/sentineldownloads/?s=&c=End+User&p=Sentinel+HASP&o=all&t=all
@@ -33,16 +38,19 @@ http://sentinelcustomer.safenet-inc.com/sentineldownloads/?s=&c=End+User&p=Senti
 3. 通过开始菜单打开命令行（Windows 7用户注意选择管理员账户运行cmd），然后cd到Sentinel工具目录，务必找到haspdinst.exe。
 
 **查看haspinst帮助**
-
-	haspdinst -h
+```bash
+haspdinst -h
+```
 
 **卸载HASP运行环境**
-	
-	haspdinst -fr -purge
+```bash
+haspdinst -fr -purge
+```
 
 **重新安装HASP运行环境**
-	
-	haspdinst -i -fi -kp
+```bash
+haspdinst -i -fi -kp
+```
 
 
 【P.S】原文同步在[cnblogs](http://www.cnblogs.com/ingvar/p/3663246.html)上。
