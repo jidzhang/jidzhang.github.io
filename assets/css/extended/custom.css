@@ -70,6 +70,18 @@ code {
     opacity: 0.6;
 }
 
+/* 代码块：使用 onedark 配色 */
+.highlight pre, .highlight code, pre.chroma {
+    background-color: #282c34 !important;
+    color: #abb2bf !important;
+    border-radius: 4px;
+}
+
+.post-content code {
+    background-color: #3e4451 !important;
+    color: #abb2bf !important;
+}
+
 /* 手机端文章页增加左右留白 */
 @media (max-width: 768px) {
     .post-single .post-content,
