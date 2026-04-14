@@ -7,38 +7,51 @@ categories:
   - "Geek"
 ---
 
-下面的程序可以用来测试是大端序还是小端序：
+下面的程序提供了两种方法判断处理器字节序：
+
+**方法一：指针强制转换**
 ```c
-
-/*
- * How can I determine whether a machine'sbyte orderis big-endian or little-endian?
- * */
-
 #include <stdio.h>
 
-int main(int argc, char const *argv[])
+/* 返回 1 表示小端序，0 表示大端序 */
+int is_little_endian(void)
 {
-    /* method 1 */
     int x = 1;
-    if(*(char *)&x == 1)
+    return *(char *)&x == 1;
+}
+
+int main(void)
+{
+    if (is_little_endian())
         printf("little-endian\n");
     else
         printf("big-endian\n");
+    return 0;
+}
+```
 
-    /* method 2 */
-    {
-        union {
-            int i;
-            char c[sizeof(int)];
-        } unx;
+**方法二：利用 union**
+```c
+#include <stdio.h>
 
-        unx.i = 1;
-        if(unx.c[0] == 1)
-            printf("little-endian\n");
-        else
-            printf("big-endian\n");
-    }
+/* 返回 1 表示小端序，0 表示大端序 */
+int is_little_endian_union(void)
+{
+    union {
+        int i;
+        char c[sizeof(int)];
+    } unx;
 
+    unx.i = 1;
+    return unx.c[0] == 1;
+}
+
+int main(void)
+{
+    if (is_little_endian_union())
+        printf("little-endian\n");
+    else
+        printf("big-endian\n");
     return 0;
 }
 ```
