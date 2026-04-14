@@ -1,5 +1,5 @@
 ---
-title: "RHEL 5.x 将光盘指定为YUM服务器"
+title: "RHEL 将光盘镜像设为 YUM 源"
 date: 2015-04-01
 draft: false
 slug: "rhel-set-yum-repo-to-iso"
@@ -7,54 +7,69 @@ categories:
   - "Linux"
 ---
 
-测试了一下，确实是可以将光盘镜像作为yum的安装服务器。对于喜欢用rhel的人还是比较方便的。理论上也可以将在新版本的rhel出来后，用类似方法yum upgrade实现版本更新。
+## 适用场景
 
-(1) mount -o loop rhel-5-server-dvd.iso /media/rhel
+RHEL 服务器无法联网，需要从光盘安装软件包。
 
-(2) vi /etc/yum.repos.d/rhel-local.repo
+## 步骤
 
-    [Cluster]
-    name=Red Hat Enterprise Linux $releasever - $basearch - Cluster
-    baseurl=file:///media/rhel/Cluster
-    enabled=1
-    gpgcheck=1
-    gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+### 1. 挂载光盘镜像
 
-    [ClusterStorage]
-    name=Red Hat Enterprise Linux $releasever - $basearch - ClusterStorage
-    baseurl=file:///media/rhel/ClusterStorage
-    enabled=1
-    gpgcheck=1
-    gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+```bash
+mount -o loop rhel-5-server-dvd.iso /media/rhel
+```
 
-    [Server]
-    name=Red Hat Enterprise Linux $releasever - $basearch - Server
-    baseurl=file:///media/rhel/Server
-    enabled=1
-    gpgcheck=1
-    gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+### 2. 创建 YUM 源配置
 
-    [VT]
-    name=Red Hat Enterprise Linux $releasever - $basearch - VT
-    baseurl=file:///media/rhel/VT
-    enabled=1
-    gpgcheck=1
-    gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+编辑 `/etc/yum.repos.d/rhel-local.repo`：
 
-(3) mkdir -p /var/rhel/{Cluster,ClusterStorage,Server,VT}
+```ini
+[Server]
+name=Red Hat Enterprise Linux $releasever - Server
+baseurl=file:///media/rhel/Server
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
 
-(4) createrepo
+[Cluster]
+name=Red Hat Enterprise Linux $releasever - Cluster
+baseurl=file:///media/rhel/Cluster
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
 
-    createrepo -o /var/rhel/Cluster -g /media/rhel/Cluster/repodata/comps-rhel5-cluster.xml /media/rhel/Cluster
-    createrepo -o /var/rhel/ClusterStorage -g /media/rhel/ClusterStorage/repodata/comps-rhel5-cluster-st.xml /media/rhel/ClusterStorage
-    createrepo -o /var/rhel/Server -g /media/rhel/Server/repodata/comps-rhel5-server-core.xml /media/rhel/Server
-    createrepo -o /var/rhel/VT -g /media/rhel/VT/repodata/comps-rhel5-vt.xml /media/rhel/VT
+[ClusterStorage]
+name=Red Hat Enterprise Linux $releasever - ClusterStorage
+baseurl=file:///media/rhel/ClusterStorage
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
 
-(5) mount 
+[VT]
+name=Red Hat Enterprise Linux $releasever - VT
+baseurl=file:///media/rhel/VT
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+```
 
-    mount --bind /var/rhel/Cluster/repodata /media/rhel/Cluster/repodata
-    mount --bind /var/rhel/ClusterStorage/repodata /media/rhel/ClusterStorage/repodata
-    mount --bind /var/rhel/Server/repodata /media/rhel/Server/repodata
-    mount --bind /var/rhel/VT/repodata /media/rhel/VT/repodata
+### 3. 生成 repodata（如需要）
 
-(6) yum clean all
+```bash
+createrepo -o /var/rhel/Server -g /media/rhel/Server/repodata/comps-rhel5-server-core.xml /media/rhel/Server
+
+# 绑定生成的 repodata
+mount --bind /var/rhel/Server/repodata /media/rhel/Server/repodata
+```
+
+### 4. 清除缓存
+
+```bash
+yum clean all
+```
+
+## 验证
+
+```bash
+yum list available
+```

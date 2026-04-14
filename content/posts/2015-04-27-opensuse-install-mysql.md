@@ -1,5 +1,5 @@
 ---
-title: "openSUSE安装MySQL"
+title: "openSUSE 安装 MySQL"
 date: 2015-04-27
 draft: false
 slug: "opensuse-install-mysql"
@@ -7,13 +7,30 @@ categories:
   - "Linux"
 ---
 
-在openSUSE中安装MySQL要安装下面这些组件：
+## 安装
+
 ```bash
-libmysqlclient16
-libmysqlclient_r16
-libmysqld0
-libqt4-sql-mysql
-libreoffice-base-driver-mysql
-mysql-community-server
-mysql-community-server-client
+sudo zypper install mysql-community-server
+```
+
+## 启动并设置开机自启
+
+```bash
+sudo systemctl enable mysql
+sudo systemctl start mysql
+```
+
+## 安全初始化
+
+```bash
+sudo mysql_secure_installation
+```
+
+按提示设置 root 密码、移除匿名用户、禁止远程 root 登录等。
+
+## 验证
+
+```bash
+mysql -u root -p
+mysql --version
 ```

@@ -1,5 +1,5 @@
 ---
-title: "openSUSE安装Chrome浏览器"
+title: "openSUSE 安装 Google Chrome 浏览器"
 date: 2014-11-18
 draft: false
 slug: "opensuse-install-chrome"
@@ -7,12 +7,32 @@ categories:
   - "Linux"
 ---
 
-在openSUSE上安装chromium一点也不是问题，因为chromium是开源的，
-源里直接有chromium。但是安装Chrome就不是那么自然了，毕竟chrome不开源。
+Chromium（开源版）可以直接从 openSUSE 源安装，但 Chrome（Google 官方版）需要手动添加 Google 的软件源。
 
-这个时候需要先添加google的源，然后才可以安装chrome。如下：
+## 安装步骤
+
 ```bash
+# 1. 添加 Google Chrome 源
 sudo zypper ar -f http://dl.google.com/linux/chrome/rpm/stable/$(uname -m) Google-Chrome
+
+# 2. 刷新源
 sudo zypper ref
+
+# 3. 安装
 sudo zypper in google-chrome-stable
 ```
+
+## 安装 Chromium（开源版）
+
+```bash
+sudo zypper in chromium
+```
+
+## 区别
+
+| | Chromium | Chrome |
+|---|---------|--------|
+| 开源 | ✅ | ❌ |
+| 自动更新 | 通过系统源 | 通过 Google 源 |
+| PDF 查看器 | 无内置 | 内置 |
+| 编解码器 | 部分缺失 | 完整 |
