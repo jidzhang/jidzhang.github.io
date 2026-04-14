@@ -1,17 +1,40 @@
 ---
-title: "undefined reference to 'pthread_mutex_trylock' 解决办法"
+title: "解决 undefined reference to 'pthread_mutex_trylock'"
 date: 2015-04-30
 draft: false
 slug: "fix-undefined-reference-to-pthread_mutex_trylock"
 categories:
-  - "cpp"
+  - "C/C++"
 ---
 
-这个编译错误的解决办法：
+## 问题
 
+编译时出现 `undefined reference to 'pthread_mutex_trylock'` 等 pthread 相关函数的链接错误。
 
-在命令行中(或编译选项中)链接pthread库，即 -lpthread
+## 原因
 
-比如： `gcc main.c -o test_main -lpthread`
+POSIX 线程库（pthread）默认不链接，需要手动指定。
 
-即可
+## 解决
+
+编译时添加 `-lpthread`：
+
+```bash
+gcc main.c -o test -lpthread
+```
+
+或在 Makefile 中：
+
+```makefile
+LDFLAGS = -lpthread
+```
+
+## 推荐
+
+GCC 4.2+ 支持更规范的写法：
+
+```bash
+gcc main.c -o test -pthread
+```
+
+`-pthread` 会同时添加编译和链接所需的标志（包括预处理器宏），比 `-lpthread` 更完整。

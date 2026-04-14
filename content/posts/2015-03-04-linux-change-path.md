@@ -1,5 +1,5 @@
-﻿---
-title: "UNIX/Linux修改PATH变量"
+---
+title: "Linux/Unix 修改 PATH 环境变量"
 date: 2015-03-04
 draft: false
 slug: "linux-change-path"
@@ -7,29 +7,52 @@ categories:
   - "Linux"
 ---
 
-> 2026-04-13 修正错误
+## 问题
 
-安装完操作系统（UNIX 或 Linux，尤其是Solaris这样的系统）后经常遇到：`command not found` 的错误提示, 原因：一是需要的程序可能没有安装（安装上就得了），二是程序不在搜索路径里。
+安装软件后执行命令提示 `command not found`，但程序确实已经安装。原因是程序所在目录不在 PATH 搜索路径中。
 
-如果程序不在搜索路径里，就需要手动修改PATH，把可执行程序的路径加到PATH系统变量中。
+## 查看当前 PATH
 
-首先，确认一下目前的PATH， 用命令
 ```bash
 echo $PATH
 ```
 
-然后对缺失的path进行添加。方法如下：
+输出是以冒号分隔的目录列表，Shell 会依次在这些目录中查找可执行文件。
 
-对于Bash：
+## 添加路径
 
-编辑home下的`.bashrc` 或`.profile` 或 `.bash_profile`，添加代码
+### Bash（大多数 Linux 默认）
+
+编辑 `~/.bashrc` 或 `~/.profile`，添加：
+
 ```bash
-export PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:$HOME/bin
+export PATH=$PATH:/新路径
 ```
 
-对于Csh:
+例如：
 
-编辑home下的.cshrc，添加代码
 ```bash
-set path=($path /bin /sbin /usr/bin /usr/sbin /usr/local/bin $home/bin)
+export PATH=$PATH:/usr/local/bin:$HOME/bin
 ```
+
+### C Shell
+
+编辑 `~/.cshrc`，添加：
+
+```csh
+set path=($path /usr/local/bin $home/bin)
+```
+
+### 使配置生效
+
+```bash
+source ~/.bashrc    # Bash
+source ~/.cshrc     # C Shell
+```
+
+或重新登录。
+
+## 全局设置（所有用户）
+
+- Bash：编辑 `/etc/profile` 或 `/etc/profile.d/` 下创建脚本
+- 所有 Shell：编辑 `/etc/environment`（格式为 `PATH="/usr/local/sbin:/usr/local/bin:..."`）

@@ -1,35 +1,50 @@
-﻿---
-title: "PHP 实现网页压缩 — Enable compression"
+---
+title: "PHP 启用 Gzip 压缩加速网页加载"
 date: 2015-03-23
 draft: false
 slug: "php-enable-compression"
 categories:
-  - "Geek"
+  - "Web"
 ---
 
-使用gzip压缩页面，可以使得页面载入的更快，这里提供一个解决办法压缩wordpress型博客，当然平台是LAMP。
+## 为什么启用 Gzip
 
-其实，有这么两个办法:
-安装插件 ： wordpress gzip compress 或 gzipp 以及类似的。（用关键字gzip搜索即可） 手动修改配置文件（无需插件）
+Gzip 压缩可将 HTML/CSS/JS 等文本内容压缩 60%-80%，显著减少传输量，加快页面加载速度。
 
-本文提供手动修改配置文件实现压缩页面（怎么看效果呢？firefox 浏览器+开发工具firebug[开启net]）
+## 方法一：WordPress 插件
 
-在~/wp-content/themes/YourThemes下找到functions.php文件（我用的是默认主题twentyten，如果你的不是，那么应该查找与此类似的一个功能文件），然后在文件的最后添加下面的代码：
+在插件市场搜索 `gzip`，安装 Gzip Compression 相关插件即可。最简单但会多一个插件。
+
+## 方法二：修改主题 functions.php（无需插件）
+
+在 `wp-content/themes/你的主题/functions.php` 末尾添加：
+
 ```php
-/**
-* Plugin Name: WordPress Gzip Compression
-* Plugin URI:http://tribulant.com
-* Description: Enables gzip-compression if the visitor's browser can handle it. This will speed up your WordPress website drastically and reduces bandwidth usage as well. Uses the PHP ob_gzhandler() callback.
-* Version: 1.0
-* Author: James Socol
-* Author URI:http://jamessocol.com/
-*/
-add_action('init','ezgz_buffer');
+/* 启用 Gzip 压缩 */
+add_action('init', 'enable_gzip');
 
-function ezgz_buffer ()
-{
+function enable_gzip() {
     ob_start('ob_gzhandler');
 }
 ```
 
-看到上面的注释了吗？这段代码就是从Plugin: WordPress Gzip Compression摘下来的。
+原理：`ob_gzhandler` 是 PHP 内置的输出缓冲回调函数，会自动检测浏览器是否支持 Gzip 并启用压缩。
+
+## 方法三：Apache 配置（推荐）
+
+如果服务器启用了 `mod_deflate`，直接在 `.htaccess` 中添加：
+
+```apache
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml
+    AddOutputFilterByType DEFLATE text/css application/javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+```
+
+这是最高效的方式，压缩在 Web 服务器层完成，不经过 PHP。
+
+## 验证效果
+
+- Firefox + Firebug（Network 标签）查看响应头中的 `Content-Encoding: gzip`
+- 或使用 [PageSpeed Insights](https://pagespeed.web.dev/) 检测

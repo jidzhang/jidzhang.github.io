@@ -1,77 +1,82 @@
-﻿---
-title: "用C语言实现一个简单链表数据结构"
+---
+title: "C 语言实现单向链表"
 date: 2015-03-14
 draft: false
 slug: "implement-link-struct-in-c"
 categories:
   - "Code"
 ---
-## 用C语言实现一个简单链表数据结构
-```c
-/*
-*  本程序实现了一个简单的单向链表，其中
-*  （1）函数 first_insert()的功能是在已知链表的首表元之前插入一个指定值的表元
-*  （2）函数 reverse_copy()的功能是把已知链表，按照逆序复制出一个新链表
-*  （3）函数 print_link()用来输出链表中各表元的值
-*  （4）函数 free_link()用来释放链表的全部表元
-*   By linccn 2011.06.06
-* */
-#include <stdio.h>
-#include <malloc.h>
 
-typedef struct node{
+实现一个简单的单向链表，包含头插法、逆序复制、遍历打印和释放操作。
+
+## 代码
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node {
     int val;
     struct node *next;
-}NODE;
+} NODE;
 
-void first_insert(NODE ** p, int v)
+/* 头插法：在链表头部插入新节点 */
+void first_insert(NODE **head, int v)
 {
-    NODE *q = (NODE *)malloc(sizeof(NODE));
+    NODE *q = malloc(sizeof(NODE));
     q->val = v;
-    q->next = *p;
-
-    *p = q;
+    q->next = *head;
+    *head = q;
 }
 
+/* 逆序复制链表，返回新链表头 */
 NODE *reverse_copy(NODE *p)
 {
-    NODE *u;
-    for (u=NULL;p!=NULL;p=p->next)
-        first_insert(&u, p->val);
-
-    return u;
+    NODE *new_list = NULL;
+    for (; p != NULL; p = p->next)
+        first_insert(&new_list, p->val);
+    return new_list;
 }
 
+/* 遍历打印 */
 void print_link(NODE *p)
 {
-    for (;p!=NULL;p=p->next)
-        printf("%d, ", p->val);
+    for (; p != NULL; p = p->next)
+        printf("%d ", p->val);
     printf("\n");
 }
 
+/* 释放整个链表 */
 void free_link(NODE *p)
 {
-    NODE *u;
-    while(p!=NULL){
-        u = p->next;
+    while (p != NULL) {
+        NODE *next = p->next;
         free(p);
-        p = u;
+        p = next;
     }
 }
 
-int main()
+int main(void)
 {
-    NODE *link1, *link2;
-    int i;
-    link1 = NULL;
-    for(i=1;i<10;++i)
-        first_insert(&link1, i);
+    NODE *list1 = NULL, *list2;
 
-    link2 = reverse_copy(link1);
-    print_link(link2);
-    free_link(link1);
-    free_link(link2);
+    /* 构建链表：9 8 7 6 5 4 3 2 1（头插法导致逆序） */
+    for (int i = 1; i < 10; i++)
+        first_insert(&list1, i);
 
+    list2 = reverse_copy(list1);  /* 1 2 3 4 5 6 7 8 9 */
+
+    print_link(list1);
+    print_link(list2);
+
+    free_link(list1);
+    free_link(list2);
     return 0;
 }
 ```
+
+## 关键点
+
+- **头插法**（`first_insert`）：新节点插到链表头部，时间复杂度 O(1)
+- **逆序复制**：利用头插法的特性——正序遍历原链表、头插到新链表，自然得到逆序
+- **释放链表**：先保存 `next` 指针再 `free` 当前节点，避免访问已释放内存

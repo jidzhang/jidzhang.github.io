@@ -1,5 +1,5 @@
-﻿---
-title: "Vim自动跳到上次浏览文件时的位置"
+---
+title: "Vim 打开文件时自动跳到上次的光标位置"
 date: 2015-03-01
 draft: false
 slug: "vim-jump-to-last-cursor-position"
@@ -7,31 +7,32 @@ categories:
   - "Vim"
 ---
 
-在Windows下用gvim，这个选项是默认打开的。也就是用vim打开文件时，可以记忆退出时的位置，从而再次打开就会直接跳到上次的位置。
+## 问题
 
-该项控制命令写在$VIMRUNTIME/vimrc_example.vim下，可以把下面的命令拷贝到 `{$HOME}/.vimrc` 文件中，本方法尤其适用于Linux用户：
+在 Linux 下用 Vim 打开文件时，光标总是在第一行，而不是上次退出时的位置。Windows 下的 gVim 默认支持这个功能。
+
+## 解决方法
+
+将以下代码添加到 `~/.vimrc`：
+
 ```vim
-" Only do this part when compiled with support for autocommands.
 if has("autocmd")
-```
-filetype plugin indent on
+  filetype plugin indent on
 
-" Put these in an autocmd group, so that we can delete them easily.
-augroup vimrcEx
-au!
-
-autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-
-augroup END
-```
-
+  augroup vimrcEx
+    au!
+    autocmd BufReadPost *
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+  augroup END
 else
-```
-set autoindent   " always set autoindenting on
+  set autoindent
+endif
 ```
 
-endif " has("autocmd")
-```
+## 原理
+
+- `line("'\"")` 获取上次退出时光标所在行号（Vim 自动在 `.viminfo` 中记录）
+- `exe "normal! g`\""` 跳转到该位置（用 `g` 跳转，不改变 jumplist）
+- 判断条件确保行号有效（大于 1 且不超过文件总行数）

@@ -1,5 +1,5 @@
 ---
-title: "Vmware workstation最小化到托盘的解决方案"
+title: "VMware Workstation 最小化到系统托盘"
 date: 2015-01-11
 draft: false
 slug: "minimal-to-tray"
@@ -7,25 +7,32 @@ categories:
   - "Geek"
 ---
 
-先下载 trayconizer.zip（我下载了个for unicode的版本，才4K）。
+## 问题
 
-解压之后，放到硬盘的任何地方。
+VMware Workstation 最小化后仍然占据任务栏位置，无法像 VirtualBox 那样最小化到系统托盘。
 
-比如把Trayconizer.exe直接放到c:\windows目录下。
+## 解决方案
 
-然后把vmware workstation的快捷方式的目标改为：
+使用 **Trayconizer** 这个小工具（仅 4KB），可以让任何程序最小化到托盘。
+
+### 步骤
+
+1. 下载 [Trayconizer](http://www.whitsoftdev.com/trayconizer/)（选择 Unicode 版本）
+2. 将 `Trayconizer.exe` 放到 `C:\Windows\` 目录下（方便任何位置调用）
+3. 修改 VMware 快捷方式的**目标**为：
+
 ```
-c:\windows\Trayconizer.exe "C:\Program Files\VMware\VMware Workstation\vmware.exe"
+C:\Windows\Trayconizer.exe "C:\Program Files\VMware\VMware Workstation\vmware.exe"
 ```
 
-注 意：trayconizer.exe后面应该有一个空格。
+> 注意：`Trayconizer.exe` 和后面的路径之间有一个空格。
 
-以后，用修改过的快捷方式打开的vmware，就可以最小化到系统托盘了。
+4. 用修改后的快捷方式启动 VMware，最小化时就会自动收入托盘。
 
-当然了，该工具也适用于其他任何程序，最小化到托盘。
+## 通用性
 
-下载地址:
+此方法不限于 VMware，**任何 Windows 程序**都可以用同样的方式最小化到托盘：
 
-[http://www.whitsoftdev.com/trayconizer/](http://www.whitsoftdev.com/trayconizer/)
-或
-[http://www.uushare.com/user/antixeex/file/3115849](http://www.uushare.com/user/antixeex/file/3115849)
+```
+C:\Windows\Trayconizer.exe "目标程序的完整路径"
+```

@@ -1,5 +1,5 @@
-﻿---
-title: "最大公约数 C 语言实现"
+---
+title: "最大公约数（GCD）的两种 C 语言实现"
 date: 2015-01-15
 draft: false
 slug: "calculate-gcd-in-c"
@@ -7,117 +7,111 @@ categories:
   - "Code"
 ---
 
-最大公约数：Greatest Common Divisor，简写为gcd。
+## 一、辗转相除法（欧几里得算法）
 
-这里提供求两个整数最大公约数的计算机算法
+### 数学原理
 
-1. 辗转相除法（或称欧几里得算法）
+**定理：** `gcd(a, b) = gcd(b, a % b)`，其中 `a ≥ b`。
 
-2. Stein算法（该算法解决了大数相除的困难）
+**证明：**
 
-------------
+设 `a = k * b + r`（其中 `k = a / b`，`r = a % b`），则：
 
-（1）辗转相除法（或称欧几里得算法）
+- 若 `d` 能整除 `a` 和 `b`，则 `d` 也能整除 `r = a - k * b`
+- 若 `d` 能整除 `b` 和 `r`，则 `d` 也能整除 `a = k * b + r`
 
-欧几里得算法的依据是数学定理：gcd(y,x)=gcd(y,y%x) (其中y>=x).
+因此 `(a, b)` 和 `(b, a % b)` 的公约数完全相同，最大公约数也相同。不断递归直到余数为 0，此时的除数即为 GCD。
 
-下面给出该定理的证明：
-```text
-由于 y >= x, 可以表示为
-y = k*x + b, 其中
-k = y/x, b = y%x, 即k和b分别表示商和余数。
-下面，
-如果一个数（d）能同时被y 和 x 整除，
-记为 d|y, d|x,
-由 b = y - k*x, 知道 b也能被d整除，即 d|b
-同理，如果有整数D能被x 和 b 整除，即 D|x, D|b,
-又由y = k*x + b, 知道 y也能被D整除，即 D|y.
-现在由上面的推导知道（y, x）和（x, b）的公约数是一样的，即
-（y, x）和（x, y%x）的公约数是相同的，那么他们的最大公约数也相同，即
-gcd(y,x)=gcd(y,y%x)。
-```
+### 代码实现
 
-欧几里得算法就依据这个公式：gcd(y,x)=gcd(y,y%x)，直到出现余数为零，这时的除数就是最后的最大公约数。
 ```c
-
-/*C语言实现*/
-/*辗转相除法*/
-
 #include <stdio.h>
-
-void swap(int *a, int *b)
-{
-    int tmp;
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
-}
 
 int gcd(int a, int b)
 {
-    if (a == 0)
-        return b;
-    if (b == 0)
-        return a;
-    if (a < b)
-        swap(&a,&b);
-
-    int result = a%b;
-    while(result != 0)
-    {
+    while (b != 0) {
+        int r = a % b;
         a = b;
-        b = result;
-        result = a%b;
+        b = r;
     }
-    return b;
+    return a;
 }
 
 int main()
 {
-    int m, n;
-    m = 56; n = 108;
-    printf("The greatest common divisor of %d and %d is: %d\n",m,n,gcd(m,n));
+    printf("gcd(56, 108) = %d\n", gcd(56, 108));  // 输出 4
     return 0;
 }
 ```
 
-（2）Stein算法
+---
 
-Stein算法利用递归算法，避免了大数直接相除，对于大数运算有深远影响。
+## 二、Stein 算法
 
-Stein算法利用下面的性质：
+### 为什么需要 Stein
 
-- gcd(a,a) = a，也就是一个数和他自身的公约数是其自身
-- gcd(ka,kb) = k*gcd(a,b)，也就是最大公约数运算和倍乘运算可以交换，特别的，当k=2时，说明两个偶数的最大公约数必然能被2整除
+辗转相除法需要取模运算，对于**超大整数**（超出 CPU 原生整数范围），取模运算代价很高。Stein 算法只用加减法和移位，避免了大数除法。
+
+### 数学原理
+
+利用以下性质递归求解：
+
+1. `gcd(a, 0) = a`
+2. `gcd(2a, 2b) = 2 * gcd(a, b)` — 两个偶数，提取公因子 2
+3. `gcd(2a, b) = gcd(a, b)`（b 为奇数）— 只有一个偶数，偶数除以 2
+4. `gcd(a, b) = gcd(|a - b| / 2, min(a, b))`（a, b 均为奇数）— 差必为偶数
+
+### 代码实现
+
 ```c
-
-/*C语言实现*/
-/*Stein算法*/
 #include <stdio.h>
-int gcd(int a,int b)
+
+int stein_gcd(int a, int b)
 {
-    if (a < b)
-    {
-        int tmp = a;
-        a = b;
-        b = tmp;
+    if (a == 0) return b;
+    if (b == 0) return a;
+
+    // 找到 a 和 b 共有的因子 2
+    int k = 0;
+    while (((a | b) & 1) == 0) {
+        a >>= 1;
+        b >>= 1;
+        k++;
     }
-    if (b == 0)
-        return a;
-    if (a%2==0 && b%2==0)
-        return 2*gcd(a/2,b/2);
-    if (a%2==0)
-        return gcd(a/2,b);
-    if (b%2==0)
-        return gcd(a,b/2);
-    return gcd((a+b)/2,(a-b)/2);
+
+    // 去掉 a 中剩余的因子 2
+    while ((a & 1) == 0)
+        a >>= 1;
+
+    do {
+        // 去掉 b 中剩余的因子 2
+        while ((b & 1) == 0)
+            b >>= 1;
+
+        // 保证 a >= b
+        if (a > b) {
+            int t = a;
+            a = b;
+            b = t;
+        }
+        b = b - a;
+    } while (b != 0);
+
+    return a << k;
 }
 
 int main()
 {
-    int m, n;
-    m = 56; n = 108;
-    printf("The greatest common divisor of %d and %d is: %d\n",m,n,gcd(m,n));
+    printf("gcd(56, 108) = %d\n", stein_gcd(56, 108));  // 输出 4
     return 0;
 }
 ```
+
+---
+
+## 对比
+
+| 算法 | 核心运算 | 适用场景 |
+|------|---------|---------|
+| 辗转相除法 | 取模（除法） | 普通整数，代码简洁 |
+| Stein 算法 | 移位、加减 | 大整数运算，无硬件除法支持的场景 |

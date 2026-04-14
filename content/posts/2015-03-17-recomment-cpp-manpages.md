@@ -1,5 +1,5 @@
 ---
-title: "强烈推荐：C++ manpages -- C++在线帮助文档"
+title: "cppman：在终端查看 C++ 文档的利器"
 date: 2015-03-17
 draft: false
 slug: "recomment-cpp-manpages"
@@ -7,43 +7,43 @@ categories:
   - "Geek"
 ---
 
-## C++ manpages -- C++在线帮助文档
+## 简介
 
-> C++ manul pages generater：
->
->    cppman generates C++ manual pages from cplusplus.com and provide a man-like interface to view man pages.
->
-> PPA can be found here:https://launchpad.net/~aitjcize/+archive/manpages-cpp
+[cppman](https://github.com/aitjcize/cppman) 从 cplusplus.com 抓取 C++ 标准库文档，以 man page 格式在终端中展示。比 libstdc++ 文档更方便，是 C++ 程序员的效率工具。
 
-此manpages与Linux自带的manpage一脉相承，虽然使用方式上稍有不同，但是文档格式非常一致。
+## 安装（Ubuntu）
 
-此manpages是C++程序员的必备工具，虽然还有一个与此很相似的文档libstdc++6-4.4-doc，但是由于那个文档的格式与Linux中的manpage差别较大，使用很不方便。因此，这里极力推荐此manpage。
-
-如下（本文主要在Ubuntu下操作）：
-
-（1）向系统中添加PPA（即源），并更新
 ```bash
+# 1. 添加 PPA 源
 sudo add-apt-repository ppa:aitjcize/manpages-cpp
 sudo apt-get update
-```
 
-（2）安装程序 manpages-cpp
-```bash
+# 2. 安装
 sudo apt-get install manpages-cpp
-```
 
-（3）从Cplusplus网站上获取数据：这一步比较漫长，先去泡杯咖啡吧
-```bash
+# 3. 缓存文档数据（首次需要，耗时较长）
 cppman -c
 ```
 
-（4）畅游cppman
+## 使用
+
 ```bash
+# 查询标准库组件
 cppman cout
+cppman vector
+cppman string
 cppman iterator
+
+# 查看 STL 算法
+cppman sort
+cppman find_if
+
+# 更新缓存
+cppman -u
 ```
 
- （5）获取帮助
-```bash
-cppman  --help
-```
+## 为什么推荐
+
+- **直接按名称查询**：不用记 `std::` 前缀，`cppman cout` 即可
+- **格式统一**：和 `man` 命令一样的阅读体验
+- **离线可用**：缓存后无需联网

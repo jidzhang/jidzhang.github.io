@@ -1,38 +1,51 @@
 ---
-title: "Solaris 开启 FTP 和 SSH"
+title: "Solaris 开启 FTP 和 SSH 服务"
 date: 2015-01-05
 draft: false
 slug: "solaris-enable-ftp-and-ssh"
 categories:
-  - ""
+  - "Solaris"
 ---
 
-1. FTP
+## FTP 服务
 
-默认FTP是关闭的，启动命令：
+### 启动 FTP
+
 ```bash
-# svcadm enable /network/ftp
+svcadm enable /network/ftp
 ```
 
-此时查看FTP服务状态：
+### 查看状态
+
 ```bash
-# svcs -l network/ftp
+svcs -l network/ftp
 ```
 
-默认情况下，root用户无法登录，需要修改 `/etc/ftpd/ftpusers` 文件，把root那行前面加个#注释掉就可以了。
+### 允许 root 登录（不推荐）
 
-通常情况下不需要给root开启ftp，只给普通用户即可。因此通常不需要改配置文件，下面的SSH也是如此。
+编辑 `/etc/ftpd/ftpusers`，注释掉 root 那行。出于安全考虑，建议只给普通用户开放 FTP。
 
-2. SSH
+---
 
-默认SSH是开启的。但是root用户无法登录，需要修改/etc/ssh/sshd_config，把里面的PermitRootLogin改为yes，再重启ssh服务，
+## SSH 服务
 
-重启ssh命令：
+SSH 默认已启动。如果需要允许 root 登录：
+
+### 修改配置
+
 ```bash
-# svcadm restart network/ssh
+vi /etc/ssh/sshd_config
+# 将 PermitRootLogin 改为 yes
 ```
 
-如果重起命令不起作用 可以试下
+### 重启 SSH
+
+```bash
+svcadm restart network/ssh
+```
+
+如果重启不生效：
+
 ```bash
 svcadm refresh ssh
 svcadm enable ssh

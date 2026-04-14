@@ -1,65 +1,84 @@
 ---
-title: "solaris set NFS"
+title: "Solaris 配置 NFS 共享"
 date: 2015-02-19
 draft: false
 slug: "solaris-set-nfs"
 categories:
-  - ""
+  - "Solaris"
 ---
 
-以下操作均需root权限
+> 以下操作均需 root 权限。
 
-## server端：
+## 服务端配置
 
-（1）开启守护进程：
+### 1. 启动 NFS 服务
+
 ```bash
-svcadm enable network/nfs/server   # solaris 10
-/etc/init.d/nfs.server start       # solaris 10及以前版本
+# Solaris 10+
+svcadm enable network/nfs/server
+
+# 旧版本
+/etc/init.d/nfs.server start
 ```
 
-（2）共享目录，按照如下格式：
+### 2. 共享目录
+
+**即时生效（重启后失效）：**
+
 ```bash
-share [-F fstype] [ -o options] [-d "<text>"] <pathname> [resource] 或
-share -F nfs -o rw=engineering -d "home dirs" /export/home2 或
-share -F nfs -d "my shared dir" /export/home/shared_dir
+# 只读共享
+share -F nfs -d "shared dir" /export/home/shared
+
+# 读写共享，限定客户端
+share -F nfs -o rw=192.168.1.100 -d "home dirs" /export/home2
 ```
 
-注意，以上的命令可以即时生效，但是系统重启后就没了。
-所以，最好再写进启动脚本里，只要把上面的share代码完完整整添入/etc/dfs/dfstab即可。
+**永久生效：**
 
-（3）检查share是否成功
+将 share 命令写入 `/etc/dfs/dfstab`：
+
 ```bash
-dfshares 或
+share -F nfs -d "shared dir" /export/home/shared
+```
+
+### 3. 验证共享
+
+```bash
+dfshares
+# 或
 showmount -e
 ```
 
-## client端：
+---
 
-（1）开启守护进程：
+## 客户端配置
+
+### 1. 启动 NFS 客户端服务
+
 ```bash
-svcadm enable network/nfs/server   # solaris 10
-/etc/init.d/nfs.server start       # solaris 10及以前版本
+svcadm enable network/nfs/client
 ```
 
-（2）进行挂载，与前面的相似，也是有两个办法
+### 2. 挂载共享目录
 
-命令行：`mount -F nfs ServerIP:/SharedPath ClientPath`
+**临时挂载：**
 
-可以即时生效，但是重启后就失效了。
-
-加入启动脚本，编辑文件 /etc/vfstab, 添加
 ```bash
-ServerIP:/SharedPath - ClientPath nfs - yes -
+mount -F nfs 192.168.1.1:/export/home/shared /mnt/shared
 ```
 
-注意上面的短横线两边都有空格。
+**永久挂载（写入 /etc/vfstab）：**
 
-（3）查看挂载状态
-```bash
-showmount              # 没有参数，列出所有挂载了共享目录的客户端client
-showmount -a           # 列出server上共享的目录，同时列出client上的挂载点
-showmount -d           # 列出被client挂载的目录
-showmount -e           # 列出server端的共享目录
+```
+192.168.1.1:/export/home/shared - /mnt/shared nfs - yes -
 ```
 
-PS:更过showmount的使用请见本空间
+> 注意：各字段之间用空格分隔，短横线 ` - ` 两侧都有空格。
+
+### 3. 查看挂载状态
+
+```bash
+showmount -e 192.168.1.1    # 查看服务端共享的目录
+showmount -a                # 查看所有客户端挂载情况
+mount | grep nfs            # 查看本机 NFS 挂载
+```

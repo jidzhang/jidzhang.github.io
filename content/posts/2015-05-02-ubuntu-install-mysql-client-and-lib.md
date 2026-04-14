@@ -1,25 +1,39 @@
 ---
-title: "Ubuntu安装MySQL客户端及程序开发包"
+title: "Ubuntu 安装 MySQL 客户端及开发库"
 date: 2015-05-02
 draft: false
 slug: "ubuntu-install-mysql-client-and-lib"
 categories:
-  - "Linux ubuntu"
+  - "Linux"
 ---
 
-安装客户端、服务器:
+## 安装
+
+### MySQL 服务器 + 客户端
+
 ```bash
-sudo apt-get install mysql-server  # 不必加版本号，ubuntu会自动安装最新版
-sudo apt-get install mysql-client  # 其实这一步完全没必要，因为安装server时会自动安装client
+sudo apt-get install mysql-server
 ```
 
-如果需要用C写mysql程序，则还要安装开发库:
+安装 server 时会自动安装 client，无需单独安装。安装过程中会提示设置 root 密码。
+
+### C/C++ 开发库
+
 ```bash
 sudo apt-get install libmysqlclient-dev
 ```
 
-参考资料：
+安装后头文件在 `/usr/include/mysql/`，链接时加 `-lmysqlclient`。
 
-[ubuntu wiki](http://wiki.ubuntu.org.cn/MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97)
+## 验证
 
-[163 Blog](http://zhanyonhu.blog.163.com/blog/static/1618604420106141142702/)
+```bash
+mysql --version
+mysql -u root -p
+```
+
+## 编译示例
+
+```bash
+gcc -o myapp myapp.c $(mysql_config --cflags --libs)
+```

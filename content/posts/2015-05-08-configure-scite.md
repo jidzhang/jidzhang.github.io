@@ -1,52 +1,61 @@
 ---
-title: "把SciTe打造成更强大的程序员专用编辑器"
+title: "配置 SciTE 编辑器用于 C/C++ 开发"
 date: 2015-05-08
 draft: false
 slug: "configure-scite"
 categories:
-  - "Geek"
+  - "工具"
 ---
-SciTe是一款很小巧又很强大的编辑器，非常适合程序员使用。
 
-大家了解Scite通常是因为使用AutoIt才间接知道Scite，其实，Scite的使用范围要广得多。
+## 前置准备
 
-现在开始配置Scite，使得它更适合编写调试程序，
+### 1. 安装 GCC
 
-（1）首先安装GCC编译器，并且把gcc程序放在path里
+安装 MinGW 或 Dev-C++，确保 `gcc` 在 PATH 中：
 
-怎么安装gcc呢？可以安装MinGW，可以安装Dev-Cpp之类的包含gcc的IDE，关键是把gcc程序目录加入path
-
-（2）安装AStyle，代码格式化工具
-
-参考本空间内文章：http://hi.baidu.com/linccn/blog/item/65916110da1f0566ca80c4ee.html
-
-或许你已经安装了Astyle，但我用的是原版Scite，所以需要单独安装Astyle。
-
-（3）编辑“选项”->“用户配置文件”或“本地配置文件”，加入以下代码：
+```bash
+gcc --version
 ```
-#################
-#以下取自全局设置.properties
-#################
-#括号匹配模式
-#braces.sloppy=0
 
-#默认文件名后缀
-default.file.ext=.txt
+### 2. 安装 AStyle（代码格式化）
 
-#代码自动补全
+从 [AStyle 官网](http://astyle.sourceforge.net/) 下载，放入 PATH。
+
+## 配置 SciTE
+
+打开 **选项 → 用户配置文件**（或编辑 `SciTEUser.properties`），添加：
+
+```properties
+# 自动补全
 autocompleteword.automatic=1
 
-#编辑窗口字体
-font.base=font:Courier New,size:12
+# 字体设置
+font.base=font:Consolas,size:12
+font.monospace=font:Consolas,size:12
 
-#使用等宽字体
-font.monospace=font:Verdana,size:10
+# 括号匹配
+braces.sloppy=1
 
-#################
-#以下取自cpp.properties
-#################
+# C 程序：按 F5 自动编译并运行
+command.go.needs.*.c=gcc -std=c99 "$(FileNameExt)" -o "$(FileName)"
+command.go.*.c="$(FileName)"
 
-#To make the Go command both compile(if needed) and execute, use this setting:
-#对C程序，运行脚本命令（即F5），可以在需要的时候先编译后执行，默认行为是只运行不编译。如果之前没有用Ctrl+F7编译过，则无法运行。
-command.go.needs.*.c=gcc $(ccopts) -std=c99 $(FileNameExt) -o $(FileName)
+# C++ 程序
+command.go.needs.*.cpp=g++ -std=c++11 "$(FileNameExt)" -o "$(FileName)"
+command.go.*.cpp="$(FileName)"
+
+# 编译命令（Ctrl+F7）
+command.compile.*.c=gcc -std=c99 -Wall "$(FileNameExt)" -o "$(FileName)"
+command.compile.*.cpp=g++ -std=c++11 -Wall "$(FileNameExt)" -o "$(FileName)"
 ```
+
+## 快捷键
+
+| 快捷键 | 功能 |
+|--------|------|
+| `F5` | 编译并运行 |
+| `Ctrl+F5` | 运行（不编译） |
+| `Ctrl+F7` | 仅编译 |
+| `Ctrl+I` | AStyle 格式化代码 |
+| `Ctrl+D` | 复制当前行 |
+| `Ctrl+Shift+↑/↓` | 移动当前行 |

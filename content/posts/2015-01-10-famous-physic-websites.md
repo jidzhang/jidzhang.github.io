@@ -1,61 +1,27 @@
 ---
-title: "世界著名物理学网站集合"
+title: "实用的物理/数学参考网站推荐"
 date: 2015-01-10
 draft: false
 slug: "famous-physic-websites"
 categories:
-  - "Geek"
+  - "Life"
 ---
 
+> 转载整理，原出处不详。
 
-1. [物理学会网站](http://www.iop.org/) 物理学会(The Institute of Physics)是一个国际性的组织，主要的站点在英国。该网站提供一系列免费服务。网站将图形的数量保持在最低限度，确保能以最快的速度下载复杂资料。 HTML 的使用也已简化，可让更多使用各种不同浏览器的人得以访问物理学会网站。
+## 物理学
 
-2. [德国物理网站](http://physnet.uni-oldenburg.de/PhysNet/physnet.html) 物理网（PhysNet ），是一个提供全球大学物理系和物理资源信息的非商业网站，主要目的是为全球的物理学工作者提供信息服务，任何人都可以免费共享其网上的信息。这个物理网 的工作重点在于各个大学的物理系和物理参考文献上，其所有的文献可以全文浏览。主要的栏目如下：与各个大学物理系的连接，物理参考文献的连接，物理期刊的 连接，物理学术会议，其它的相关连接。
+- [HyperPhysics](http://hyperphysics.phy-astr.gsu.edu) — 佐治亚州立大学出品，概念地图式物理知识索引，覆盖力学、电磁学、光学、量子物理等所有分支
+- [The Feynman Lectures](http://www.feynmanlectures.caltech.edu) — 费曼物理学讲义在线版，加州理工免费开放
+- [Physics Stack Exchange](http://physics.stackexchange.com) — 物理问答社区
 
-3. [挪威物理网站](http://physicsworld.com/) 主要内容为全球的物理新闻和物理信息服务，它的搜索功能特别好用，可以搜索物理站点、物理学术会议、物理连接、关键 词和物理工作等。在主页中包含如下主要栏目：物理新闻，物理世界，最好的物理网，友情连接，物理日历，物理网络导航等。对其所有内容均可以全文浏览，没有 任何限制，如果在该网站注册，则会得到电子邮件信息服务，而且选择的范围和方式很广。如果查寻会议或物理站点这是一个令人相当满意的站点。
+## 数学
 
-4. [荷兰物理网站](http://www.elsevier.nl/homepage/sak/physics/) 设置的主要栏目有：新天体物理，物理电子学，物理指导，生命 物理，凝聚态物理，表面物理。其实这6个栏目各为一个网站，内容相当丰富。如果在该网站注册后，你可以根据你的学科专业来订阅免费的电子文章，它会把与你 学科专业相关的信息定期的以电子邮件的形式发送给你，非常有学术价值。
+- [Wolfram MathWorld](http://mathworld.wolfram.com) — 最全面的数学百科，公式和证明都很详尽
+- [Khan Academy](https://www.khanacademy.org/math) — 从基础到高等数学的视频教程，免费
+- [Brilliant](https://brilliant.org) — 互动式数学和科学练习平台
 
-5. [美国物理协会网站](http://www.aps.org/) 该网站主要包含以下内容：物理期刊，物理资源，物理会 议，物理日历，物理教育。物理期刊：主要是由美国物理协会主办的各种物理期刊，所有的文章均可以全文查询，而且内容相当丰富。物理资源：此物理资源是指非 美国物理协会的物理资源，可按此连接查找其它的物理资源。这部分包含的内容很多，基本上把美国的一些主要的物理资源都列出了，另外还有部分欧洲的站点，并 且有连接。我们把其涉及的范围列出如下：物理研究机构，物理类出版物（包括期刊和书籍），物理类站点，世界主要国家的物理学会等等。物理会议：此栏目把一 年至两年的物理会议主题及承办单位和具体情况列出，可以方便的查找物理会议。物理日历：此栏目把一年至两年的各种物理活动主题及承办单位和具体情况列出， 从这里你可以方便的查找美国物理协会在未来的时间里将有那些物理活动。物理教育：了解美国物理教育的一个绝好窗口。
+## 数据查询
 
-6. [美国物理研究所网站](http://www.aip.org/) 位于美国的纽约洲，其主 要任务是物理知识和应用的推广普及，主要的研究方向为物理学和天文物理学。该研究所每年都有在线的年度报告（Annual Reports）,在年度报告中详细的介绍一年的主要工作，这是了解其性质及研究方向的最简洁的途径。设置的主要栏目如下。研究所的协会成员：介绍研究所 的各个成员单位，这里有到美国的许多物理机构的连接，是个值得访问的地方。美国物理研究所的期刊：此栏目详细的列出了美国物理研究所出版的各种期刊，可以 查询或检索。主要有以下几种期刊：Applied Physics Letters（应用物理通讯）、 Chaos（混沌）、The Journal of Chemical Physics （物理化学期刊）、 Journal of Mathematical Physics（数学物理期刊）、 Low Temperature Physics （低温物理）、 Journal of Physical and Chemical Reference Data（物理化学参考）、 Physics of Fluids（流体物理）、 Physics of Plasmas（等离子体物理）、 Review of Scientific Instruments（科学仪器评论）、 Computing in Science & Engineering（科学与工程计算）。今日物理：连接到今日物理期刊的主页。只要在这里注册，就可以免费浏览今日物理的过刊和现刊，非常的方便。学 术会议日历：主要信息是未来一年中将要举行的物理学术会议。历史中心：此栏目对物理学发展当中的一些物理史进行介绍，包括一些著名实验和实验室，而且更新 的速度很快，对物理学史赶兴趣或需要在备课当中查找这方面知识的教师不妨经常到此浏览一番，相信对提高教学水平会有很大的帮助。教育与学生服务：此栏目设 有物理教学软件，有的需要购买，但有些是可以浏览和下载的，即使不能下载的也能从其简要的介绍中的得到很大的启发，教学过程中需要的各种物理图片也能从这 里找到。这里还经常刊登一些物理教学与物理学习的研究文章，可以全文下载。
-
-7. [欧洲物理协会网站](http://www.eps.org/) 在此站点可以查询每年欧洲的物理会议，查找欧洲物理协会 的物理文献以及对整个欧洲物理学的发展和研究工作进行跟踪研究。可以说只要来到此网站浏览，应当对欧洲的物理信息有个相当全面的掌握。
-
-8. [科学论坛网站](http://link.springer.com/) 科学论坛根据学科划分为生命科学，化学，地球学，计算机科 学，数学，医学，物理学与天文学，工程学，环境科学，法学和经济学。在在线图书馆的所有文献中，对于目录和摘要部分的访问没有任何限制，但是对于文献的全 文访问则只限于订阅其期刊的用户。该网站有用户提醒服务，只要注册后就可以根据自己的学科专业得到最新的专业发展信息，服务是免费的。
-
-9. [美国在线文档网站](http://arxiv.org/) 这是由美国国家科学基金委 员会等资助的一个在线文档站点arXiv.org，它是一个完全自动化的电子文档网站，资源为全世界的作者在此提交的电子稿件，其文献资料的学科范围为物 理学，数学，非线性和计算机科学。主要功能是提供文献查询，所有资料均可以全文浏览和下载。在此站点即可以查询文章也可以提交文章，另外还可以在此站点注 册以便能够及时的收到所关心的最新文章。这里需要强调的是，虽然它是一个完全自动化的电子文档网站，但是这里的文献还是很有参考价值的，以原子核物理为 例，其中的许多文章都是在原子核物理A（Nuclear Physics A）上发表的。
-
-10. [等离子体物理实验室网站](http://plasma-gate.weizmann.ac.il/) 在主页中有该实验室 的科研项目介绍，实验设备及情况介绍，等离子体物理基本理论及应用情况介绍。它的下属站点非常有吸引力。
-
-11. [欧洲物理协会网络服务器主页](http://www.nikhef.nl/pub/eps/epsa.html) 欧洲物理协会物理网络服务器主页，设置的主要 栏目有：欧洲物理学家，物理教育部，欧洲大型物理设备，物理工作信息，普通物理信息等等。
-
-12. 其它的物理网站
-（1） [原子核科学ABC网站](http://www2.lbl.gov/abc/)   
-（2） [欧洲光学协会网站](http://www.myeos.org/)   
-（3） [欧洲核物理协会网站](http://www.euronuclear.org/)   
-（4） [美国核物理协会网站](http://www.ans.org/)   
-（5） [美国物理中心网站](http://www.acp.org/)   
-（6） [欧洲粒子物理研究所网站](http://welcome.cern.ch/welcome/gateway.html)   
-（7） [欧洲粒子物理研究所在线图书馆网站网站](http://cds.cern.ch/)   
-（8） [德国奥德堡大学物理系的网站](http://www.uni-oldenburg.de/en/physics/information-services/)   
-（9） [阿姆斯特丹大学物理系网站](http://www.uva.nl/over-de-uva/organisatie/faculteiten/item/faculteit-der-natuurwetenschappen-wiskunde-en-informatica.html)   
-（10） [物理参考数据网网站](http://www.iuk-initiative.org/)   
-（11） [雅虎物理网网站](https://business.yahoo.com/Science/physics)   
-（12） [物理文献搜索引擎Ingenta网站](http://www.publishingtechnology.com/)   
-（13） [物理进入点网站](http://www.iuk-initiative.org/doc/physik.html)   
-（14） [荷兰的原子核物理网站](http://www.nikhef.nl/)    
-（15） [国际数学物理协会网站](http://www.iamp.org/page.php?page=page_start)   
-（16） [国际物理学生协会网站](http://iaphys.org/)   
-（17） [国际理论物理协会网站](http://www.ictp.trieste.it/)   
-（18） [国际光学工程协会网站](http://www.spie.org/)   
-（19） [国际医学物理工程协会网站](http://www.iupesm.org/)   
-（20） [国际应用生物物理学协会网站](http://iupab.org/welcome.html)   
-（21） [国际结晶学协会网站](http://www.iucr.org/welcome.html)   
-（22） [国际材料协会网站](http://www.mrs.org/home/)   
-（23） [国际光谱学协会网站](http://www.s-a-s.org/)   
-（24） [国际物理协会网站](http://iupap.org/)   
-（25） [国际液体晶体协会网站](http://www.lcinet.kent.edu/ILCS/main/)    
-（26） [世界各国大学站点数据库](http://www.uibk.ac.at/geographie/)    
-（27） [诺贝尔基金委员会网站](http://www.nobel.se/)   
-
+- [NIST](http://physics.nist.gov/cuu/Constants) — 物理常数权威数据
+- [Wolfram Alpha](http://www.wolframalpha.com) — 计算知识引擎，可查询物理/数学/化学数据

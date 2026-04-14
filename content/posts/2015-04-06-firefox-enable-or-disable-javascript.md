@@ -1,5 +1,5 @@
 ---
-title: "Firefox 开启或关闭 javascript"
+title: "Firefox 启用或禁用 JavaScript"
 date: 2015-04-06
 draft: false
 slug: "firefox-enable-or-disable-javascript"
@@ -7,19 +7,16 @@ categories:
   - "Geek"
 ---
 
-升级到Firefox23.0后突然发现javascript被禁用了，浏览很多网站都出问题，而且
+## 问题
 
-Firefox23.0在首选项中取消了javascript的设置项。
+Firefox 23+ 在首选项中移除了 JavaScript 开关。如果 JS 被意外禁用，需要通过隐藏配置修改。
 
-郁闷了一天后，突然想到一个稳妥的办法，改config，步骤如下：
+## 解决方法
 
-1. 在地址栏中输入about:config, 然后选“我保证会小心”，进入设置项页面
+1. 地址栏输入 `about:config`，点击"接受风险并继续"
+2. 搜索 `javascript.enabled`
+3. 双击该条目切换 `true`（启用）/ `false`（禁用）
 
-2. 在出现的搜索栏内输入javascript，在下面的列表中会看到javascript.enabled被设置为false
-![firefox confiure](/images/firefox-enable-js.jpeg)
+立即生效，无需重启。
 
-3. 双击刚才看到的条目，把选项改为true！
-
-要禁用（你确定？）javascript，则再双击一次，改为false即可！
-
-不需要重启Firefox，现在javascript已经被启用了！
+> 也可以安装 [NoScript](https://noscript.net/) 扩展，按站点精细控制 JS 权限，比全局开关更实用。

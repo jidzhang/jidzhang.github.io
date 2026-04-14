@@ -1,5 +1,5 @@
 ---
-title: "Firefox切换中文或英文界面"
+title: "Firefox 切换中英文界面"
 date: 2015-04-07
 draft: false
 slug: "firefox-switch-chinese-or-english"
@@ -7,27 +7,26 @@ categories:
   - "Geek"
 ---
 
-安装Firefox的时候因为不喜欢火狐中文版自带的乱七八糟的插件，所以选择安装了英文版的。
+## 英文 → 中文
 
-现在想切换到中文版，毕竟中文版的字体看着习惯。
+### 1. 安装中文语言包
 
-为了实现中英文切换，需要从官网上安装语言组件，然后改一个设置，很简单。
- 
-## 英文转中文
+访问 Firefox 语言包目录，找到对应版本的 `zh-CN.xpi` 安装：
 
-1. 安装中文语言组件
+```
+https://ftp.mozilla.org/pub/firefox/releases/版本号/win32/xpi/zh-CN.xpi
+```
 
-这里以16.0.1为例进行说明，你需要找个自己对应的版本。
+或直接在 Firefox 附加组件中搜索"Chinese"安装。
 
-`ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/16.0.1/win32/xpi/`
+### 2. 修改语言设置
 
-在上面找到zh-CN.xpi，点击后安装
+地址栏输入 `about:config`，搜索 `general.useragent.locale`，改为 `zh-CN`。
 
-2. 改设置
+重启 Firefox 即可。
 
-在地址栏内输入`about:config`，确认后搜索 `general.useragent.locale`，改为 `zh-CN`
-保存后重启Firefox，现在界面就变成中文的了。
+## 中文 → 英文
 
-## 中文转英文
+同理：安装 `en-US.xpi`，将 `general.useragent.locale` 改为 `en-US`。
 
-跟上面的过程很像，先安装en-US.xpi，然后把 `general.useragent.locale` 改为 `en-US` 即可. 
+> 较新版本的 Firefox 可直接在 设置 → 常规 → 语言 中切换，无需手动修改配置。

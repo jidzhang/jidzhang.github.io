@@ -1,5 +1,5 @@
 ---
-title: "man : 在线手册页,查询系统命令、库函数帮助"
+title: "man 命令：在线手册页使用指南"
 date: 2015-03-06
 draft: false
 slug: "howto-man-command"
@@ -7,34 +7,47 @@ categories:
   - "Linux"
 ---
 
-man -- format and display the on-line manual pages
+## 基本用法
 
-常用法:
 ```bash
-man [section] name
+man [章节号] 命令名
 ```
 
-其中:
+## 章节说明
 
-* section 指的是手册页的哪个部分,可以是1、2、3...8.,若不指定,man会按照次序依次查找,知道找到第一个。
+| 章节 | 内容 | 示例 |
+|------|------|------|
+| 1 | 用户命令 | `man 1 ls` |
+| 2 | 系统调用 | `man 2 open` |
+| 3 | C 库函数 | `man 3 printf` |
+| 4 | 设备和特殊文件 | `man 4 null` |
+| 5 | 配置文件格式 | `man 5 passwd` |
+| 7 | 杂项（协议、字符集等） | `man 7 ascii` |
+| 8 | 系统管理命令 | `man 8 mount` |
 
-* name 指的是某个命令、函数或文件
+不指定章节号时，`man` 会按顺序搜索，返回第一个匹配结果。
 
-下面对section做一些说明:
+## 常见陷阱
 
-- **1** = 命令（比如cp mv rm 等）
-- **2** = 系统调用（比如open read close 等）
-- **3** = C库函数（比如printf）
-- **4** = 设备和特殊文件
-- **5~8** 省略，详细说明请查看：`man man`
-
-例子:
 ```bash
-man cp   => man 1 cp,  1通常省略
-man open => man 2 open, 但如果用 `man 3 open` 的话就出错：No entry for open in section 3 of the manual
-man printf
+man printf    # 显示第 1 章：shell 命令 printf
+man 3 printf  # 显示第 3 章：C 库函数 printf
 ```
 
-注意:这个不同于 man 3 printf, 因为在用户命令里面也有一个控制格式出错的printf命令,所以优先显示的user command : printf, `man 3 printf`这个才是真正的查询C库函数里的printf函数
+两者完全不同。查 C 函数时务必指定章节号 `3`。
 
-另外,manpages 有个主页:[http://www.kernel.org/pub/linux/docs/man-pages/](http://www.kernel.org/pub/linux/docs/man-pages/)  提供最新的manpages。
+## 实用技巧
+
+```bash
+# 搜索手册页（不知道完整名称时）
+man -k "copy files"    # 等同于 apropos
+
+# 在 man 页面内搜索
+# 按 / 输入关键词，n 下一个，N 上一个
+
+# 查看手册页存储路径
+man --path
+
+# 以网页方式打开（部分系统支持）
+man -H firefox open
+```

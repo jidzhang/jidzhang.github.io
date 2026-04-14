@@ -1,5 +1,5 @@
 ---
-title: "控制 Linux 能否创建核心转储文件 coredump"
+title: "Linux 控制 Core Dump 核心转储文件"
 date: 2015-04-16
 draft: false
 slug: "linux-crate-coredump"
@@ -7,17 +7,56 @@ categories:
   - "Linux"
 ---
 
-Linux系统能否创建核心转储文件coredump，以及core文件的大小限制，是由当前的shell控制，因此要通过相关shell进行修改：
+## 什么是 Core Dump
 
-（1）查看当前shell对核心文件的限制，
+程序崩溃时，系统可以将当时的内存映像写入磁盘文件（core dump），用于事后用 GDB 调试分析崩溃原因。
 
-bash使用: `ulimit -c`，对于csh或tcsh, 使用`limit`进行查看
+## 查看当前设置
 
-（2）修改对核心文件的限制，
+```bash
+# Bash
+ulimit -c
 
-对于bash，使用命令 `ulimit -c N` ，这里的N是核心文件的最大大小，以**千字节KB**为单位；N为0表示禁止创建核心文件；   
-如果想取消对大小的限制，那么要用 ulimit -c unlimited，即可以无限大。
+# C Shell
+limit coredumpsize
+```
 
-对于csh或tcsh，用命令 `limit coredumpsize N`，这里的N以**字节B**为单位。
+输出为 `0` 表示禁止生成，`unlimited` 表示无大小限制。
 
-（3）修改之后可以继续用（1）里的方法查看效果。
+## 开启 Core Dump
+
+```bash
+# Bash（单位：KB）
+ulimit -c unlimited    # 无限制
+ulimit -c 102400       # 最大 100MB
+
+# C Shell（单位：B）
+limit coredumpsize unlimited
+```
+
+## 永久生效
+
+在 `/etc/security/limits.conf` 中添加：
+
+```
+*  soft  core  unlimited
+```
+
+或编辑 `/etc/profile`，添加 `ulimit -c unlimited`。
+
+## Core 文件位置
+
+```bash
+# 查看当前 core 文件路径模板
+cat /proc/sys/kernel/core_pattern
+
+# 设置路径（例如统一放到 /var/core/）
+echo "/var/core/core.%e.%p.%t" | sudo tee /proc/sys/kernel/core_pattern
+```
+
+## 使用 Core Dump 调试
+
+```bash
+gdb ./program core
+(gdb) bt       # 查看崩溃时的调用栈
+```

@@ -1,25 +1,46 @@
 ---
-title: "FreeBSD开启SSH登录"
+title: "FreeBSD 开启 SSH 远程登录"
 date: 2015-04-18
 draft: false
 slug: "freebsd-enable-ssh-login"
 categories:
-  - "Linux"
+  - "FreeBSD"
 ---
 
-（1）编辑/etc/inetd.conf, 去掉ssh前的#
+## 步骤
 
-（2）编辑/etc/rc.conf
-  确保有这一行 `sshd_enable="yes"`
+### 1. 启用 SSH 服务
 
-（3）最后配置sshd(守护进程)，编辑文件 `/etc/ssh/sshd_config`， 在文件后加入下面的三行
+编辑 `/etc/rc.conf`，确保有：
+
 ```bash
-PermitRootLogin yes   #允许root
-PermitEmptyPasswords no    #不允许空密码
-PasswordAuthentication yes    #认证
+sshd_enable="yes"
 ```
 
-（4）激活sshd服务：
+编辑 `/etc/inetd.conf`，去掉 ssh 行前的 `#`。
+
+### 2. 配置 SSHD
+
+编辑 `/etc/ssh/sshd_config`，确保以下配置：
+
 ```bash
-root#   /etc/rc.d/sshd  restart
+PermitRootLogin yes           # 允许 root 登录（按需开启）
+PermitEmptyPasswords no       # 禁止空密码
+PasswordAuthentication yes    # 允许密码认证
+```
+
+### 3. 重启服务
+
+```bash
+/etc/rc.d/sshd restart
+```
+
+### 4. 验证
+
+```bash
+# 本地测试
+ssh localhost
+
+# 远程连接
+ssh user@服务器IP
 ```

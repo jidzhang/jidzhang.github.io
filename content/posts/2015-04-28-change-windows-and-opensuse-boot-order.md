@@ -1,40 +1,39 @@
 ---
-title: "修改openSUSE与Windows多系统启动顺序"
+title: "修改 openSUSE + Windows 双系统启动顺序"
 date: 2015-04-28
 draft: false
 slug: "change-windows-and-opensuse-boot-order"
 categories:
-  - "Linux openSUSE"
+  - "Linux"
 ---
 
-由于先安装了Windows后安装openSUSE，结果启动项首选项由windows变成了openSUSE，这一点很出乎预料。
+## 问题
 
-那么怎么恢复回来呢？
+先装 Windows 后装 openSUSE，GRUB 默认启动项变为 openSUSE。需要改回 Windows 优先。
 
-其实，在openSUSE系统里有一个Boot Loader的设置项，可以更改启动顺序。可以通过图形界面设置，也可以直接编辑配置文件。
+## 方法一：YaST 图形界面
 
-（1）图形界面方式设置
+1. 打开 YaST → System → Boot Loader
+2. 找到 Windows 启动项，设为 Default
+3. 确定保存
 
-系统菜单-->Applications-->System-->Administor Settings-->System-->Boot Loader 单击后打开设置界面
+## 方法二：编辑 GRUB 配置
 
-把windows调到第一项，并设置为默认项（Set as Default）。确定即可。
-
-（2）编辑 /boot/grub/menu.list
 ```bash
-sudo vi /boot/grub/menu.list
+sudo vi /boot/grub/menu.lst
 ```
 
-找到Windows行，类似下面的四行（）
+找到 Windows 段落：
+
 ```bash
-###Don't change this comment - YaST2 identifier: Original name: windows###
+### Don't change this comment - YaST2 identifier: Original name: windows ###
 title Windows
-    rootnoverify (********)
+    rootnoverify (hd0,0)
     chainloader +1
 ```
 
-剪切到 title Desktop -- openSUSE 11.****这一行的注释行的前面，然后保存、退出，即可。
+将整个 Windows 段落**剪切到** openSUSE 段落的前面（即第一项），保存退出。
 
-剩下的就是重启机器啦。
+重启后 Windows 即为默认启动项。
 
-转自: [CSDN](http://blog.csdn.net/ingvar08/article/details/6817255)
-
+> 新版 openSUSE 使用 GRUB2，配置文件为 `/etc/default/grub`，修改 `GRUB_DEFAULT` 后执行 `sudo grub2-mkconfig -o /boot/grub2/grub.cfg`。

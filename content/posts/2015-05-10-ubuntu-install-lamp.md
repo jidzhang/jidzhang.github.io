@@ -1,35 +1,53 @@
 ---
-title: "Ubuntu一键安装及卸载LAMP"
+title: "Ubuntu 一键安装/卸载 LAMP 环境"
 date: 2015-05-10
 draft: false
 slug: "ubuntu-install-lamp"
 categories:
-  - "Linux ubuntu"
+  - "Linux"
 ---
 
-一键安装LAMP服务：
+> LAMP = Linux + Apache + MySQL + PHP
+
+## 安装
+
 ```bash
 sudo tasksel install lamp-server
 ```
 
-一键卸载LAMP：
+安装过程中会提示设置 MySQL root 密码。
+
+## 卸载
+
 ```bash
 sudo tasksel remove lamp-server
 ```
 
-补充：
-```bash
-LAMP = Linux+Apache+MySQL+PHP
-```
+> ⚠️ 卸载后务必更新系统，防止误删系统组件：
 
-通过上面的命令卸载Lamp时不免把Linux系统本身的东西卸载掉了，因此，
-
-在卸载LAMP后**一定**记着更新一下系统：
 ```bash
 sudo apt-get update
 sudo apt-get upgrade
 ```
 
-上面两条都要执行，切记！
+## 验证
 
-参考资料：[Ubuntu Skills](http://wiki.ubuntu.org.cn/UbuntuSkills#.E4.B8.80.E9.94.AE.E5.AE.89.E8.A3.85_LAMP_.E6.9C.8D.E5.8A.A1)
+```bash
+# 检查 Apache
+apache2 -v
+curl http://localhost
+
+# 检查 MySQL
+mysql --version
+
+# 检查 PHP
+php -v
+```
+
+## 单独安装各组件
+
+```bash
+sudo apt-get install apache2
+sudo apt-get install mysql-server
+sudo apt-get install php libapache2-mod-php php-mysql
+```

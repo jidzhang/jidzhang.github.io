@@ -1,49 +1,37 @@
 ---
-title: "ubuntu remove and install Gui desktop"
+title: "Ubuntu 安装和卸载图形桌面"
 date: 2015-05-09
 draft: false
 slug: "ubuntu-remove-and-install-gui-desktop"
 categories:
-  - "linux ubuntu"
+  - "Linux"
 ---
 
-# Ubuntu安装和卸载图形界面
+## 安装桌面环境
 
-通常的流程是这样：假如你已经默认安装了Gnome，现在想安装KDE或XFCE4，那么需要先卸载掉gnome，然后“在线”下载安装另一个桌面系统；如果你一开始用的是ubuntu-server版，直接安装就可以了，看下面。
+| 桌面 | 安装命令 | 特点 |
+|------|---------|------|
+| GNOME | `sudo apt-get install ubuntu-desktop` | Ubuntu 默认，功能全面 |
+| KDE | `sudo apt-get install kubuntu-desktop` | 类 Windows 风格，高度可定制 |
+| XFCE | `sudo apt-get install xubuntu-desktop` | 轻量，适合旧硬件 |
+| LXDE | `sudo apt-get install lubuntu-desktop` | 更轻量 |
 
-## 卸载桌面
+安装后在登录界面可选择桌面环境。
 
-卸载gnome：
-```
+## 卸载桌面环境
+
+```bash
+# 卸载 GNOME
 sudo apt-get --purge remove liborbit2
 sudo apt-get autoremove
-```
 
-卸载kde：
-```
+# 卸载 KDE
 sudo apt-get --purge remove kdelibs4c2a libarts1c2a
+sudo apt-get autoremove
+
+# 卸载 XFCE
+sudo apt-get --purge remove xfce4 xfconf
 sudo apt-get autoremove
 ```
 
-卸载xfce4：
-```
-sudo apt-get --purge remove kdelibs4c2a libarts1c2a
-sudo apt-get autoremove
-```
-
-## 安装桌面
-
-安装gnome：
-```
-sudo apt-get install ubuntu-desktop
-```
-
-安装kde：
-```
-sudo apt-get install kubuntu-desktop
-```
-
-安装xfce4：
-```
-sudo apt-get install xubuntu-desktop
-```
+> 卸载后重启即可进入纯命令行模式。

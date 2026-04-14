@@ -1,5 +1,5 @@
 ---
-title: "Linux/UNIX: find 命令用法"
+title: "Linux find 命令完全指南"
 date: 2015-04-14
 draft: false
 slug: "howto-find"
@@ -7,192 +7,113 @@ categories:
   - "Linux"
 ---
 
-find命令是一个无处不在命令，是Linux中最有用的命令之一。
+`find` 是 Linux 中最强大的文件搜索命令，支持按名称、类型、权限、时间、大小等多种条件查找。
 
-find命令用于在一个目录及子目录中搜索文件，可以指定一些匹配条件，如按文件名、文件类型、用户甚至是时间戳查找文件。
+## 基本语法
 
-下面就通过实例来体验下find命令的强大。
-
-1、find命令的一般形式
-
-man文档中给出的find命令的一般形式为：
 ```bash
-find [-H] [-L] [-P] [-D debugopts] [-Olevel] [path...] [expression]
+find [搜索路径] [查找条件] [执行动作]
 ```
 
-其实[-H] [-L] [-P] [-D debugopts] [-Olevel]这几个选项并不常用，上面的find命令的常用形式可以简化为：
+## 常用查找条件
+
+### 按名称
+
 ```bash
-find [path...] [expression]
+find /dir -name "*.c"           # 按文件名（区分大小写）
+find /dir -iname "*.JPG"        # 不区分大小写
+find . -name "*.log" -not -name "*.gz"   # 排除条件
 ```
 
-- `path`：find命令所查找的目录路径。例如用`.`来表示当前目录，用`/`来表示系统根目录
+### 按类型
 
-`expression`：expression可以分为——"-options [-print -exec -ok ...]"
-
-- `-options`，指定find命令的常用选项，下节详细介绍
-- `-print`，find命令将匹配的文件输出到标准输出
-- `-exec`，find命令对匹配的文件执行该参数所给出的shell命令。相应命令的形式为`'command' { } \;`，注意`{ }`和`\;`之间的空格
 ```bash
-find ./ -size 0 -exec rm {} \;
-```
-删除文件大小为零的文件（还可以这样做：`rm -i $(find ./ -size 0)` 或 `find ./ -size 0 | xargs rm -f &`）
-```bash
-find . -type f -exec ls -l { } \;
-```
-为了用`ls -l`命令列出所匹配到的文件，可以把`ls -l`命令放在find命令的`-exec`选项中：
-```bash
-find /logs -type f -mtime +5 -exec rm { } \;
-```
-在/logs目录中查找更改时间在5日以前的文件并删除它们：
-
-- `-ok`，和`-exec`的作用相同，只不过以一种更为安全的模式来执行该参数所给出的shell命令，在执行每一个命令之前，都会给出提示，让用户来确定是否执行。
-```bash
-find . -name "*.conf" -mtime +5 -ok rm { } \;
-```
-在当前目录中查找所有文件名以.conf结尾、更改时间在5日以上的文件，并删除它们，只不过在删除之前先给出提示。
-
-
-2、find命令的常用选项及实例
-
-- `-name` : 按照文件名查找文件。
-```bash
-find /dir -name filename
-```
-在/dir目录及其子目录下面查找名字为filename的文件：
-```bash
-find . -name "*.c"
-```
-在当前目录及其子目录（用`.`表示）中查找任何扩展名为"c"的文件。
-
-- `-perm` : 按照文件权限来查找文件。
-```bash
-find . -perm 755 –print
-```
-在当前目录下查找文件权限位为755的文件，即文件属主可以读、写、执行，其他用户可以读、执行的文件。
-
-- `-prune` : 使用这一选项可以使find命令不在当前指定的目录中查找，如果同时使用`-depth`选项，那么`-prune`将被find命令忽略。
-```bash
-find /apps -path "/apps/bin" -prune -o –print
-```
-在/apps目录下查找文件，但不希望在/apps/bin目录下查找：
-```bash
-find /usr/sam -path "/usr/sam/dir1" -prune -o –print
-```
-在/usr/sam目录下查找不在dir1子目录之内的所有文件。
-
-- `-user` : 按照文件属主来查找文件。
-```bash
-find ~ -user sam –print
-```
-在$HOME目录中查找文件属主为sam的文件。
-
-- `-group` : 按照文件所属的组来查找文件。
-```bash
-find /apps -group gem –print
-```
-在/apps目录下查找属于gem用户组的文件。
-
-- `-mtime -n +n` : 按照文件的更改时间来查找文件，`-n`表示文件更改时间距现在n天以内，`+n`表示文件更改时间距现在n天以前。
-```bash
-find / -mtime -5 –print
-```
-在系统根目录下查找更改时间在5日以内的文件：
-```bash
-find /var/adm -mtime +3 –print
-```
-在/var/adm目录下查找更改时间在3日以前的文件。
-
-- `-nogroup` : 查找无有效所属组的文件，即该文件所属的组在/etc/groups中不存在。
-```bash
-find / –nogroup -print
+find . -type f    # 普通文件
+find . -type d    # 目录
+find . -type l    # 符号链接
 ```
 
-- `-nouser` : 查找无有效属主的文件，即该文件的属主在/etc/passwd中不存在。
+### 按时间
+
 ```bash
-find /home -nouser –print
+find / -mtime -5     # 5 天内修改过的文件
+find / -mtime +3     # 3 天前修改过的文件
+find / -mmin -30     # 30 分钟内修改过的文件
 ```
 
-- `-newer file1 ! file2` : 查找更改时间比文件file1新但比文件file2旧的文件。
+### 按大小
 
-- `-type` : 查找某一类型的文件，诸如：
-  - `b` - 块设备文件。
-  - `d` - 目录。
-  - `c` - 字符设备文件。
-  - `p` - 管道文件。
-  - `l` - 符号链接文件。
-  - `f` - 普通文件。
 ```bash
-find /etc -type d –print
+find . -size +100M       # 大于 100MB
+find . -size 0c          # 空文件
+find . -size +10k -size -1M  # 10KB ~ 1MB
 ```
-在/etc目录下查找所有的目录：
-```bash
-find . ! -type d –print
-```
-在当前目录下查找除目录以外的所有类型的文件：
-```bash
-find /etc -type l –print
-```
-在/etc目录下查找所有的符号链接文件。
 
-- `-size n [c]` : 查找文件长度为n块的文件，带有c时表示文件长度以字节计。
+### 按权限和用户
+
 ```bash
-find . -size +1000000c –print
+find . -perm 755          # 权限为 755
+find . -user root         # 属主为 root
+find /home -nouser        # 无有效属主
+find . -group developers  # 属组
 ```
-在当前目录下查找文件长度大于1M字节的文件：
+
+### 排除目录
+
 ```bash
-find /home/apache -size 100c –print
+find /apps -path "/apps/bin" -prune -o -print   # 排除 /apps/bin
 ```
-在/home/apache目录下查找文件长度恰好为100字节的文件：
+
+## 执行动作
+
+### -exec（对每个文件执行命令）
+
 ```bash
-find . -size +10 –print
-```
-在当前目录下查找长度超过10块的文件（一块等于512字节）。
+# 删除空文件
+find . -size 0 -exec rm {} \;
 
-- `-depth` ：在查找文件时，首先查找当前目录中的文件，然后再在其子目录中查找。
+# 列出文件详情
+find . -type f -exec ls -l {} \;
+
+# 删除 5 天前的日志
+find /logs -type f -mtime +5 -exec rm {} \;
+```
+
+> `{}` 代表匹配到的文件，`\;` 是命令结束标记。
+
+### -ok（交互式 -exec）
+
 ```bash
-find / -name "CON.FILE" -depth –print
+find . -name "*.conf" -mtime +5 -ok rm {} \;   # 删除前逐一确认
 ```
-它将首先匹配所有的文件然后再进入子目录中查找。
 
-- `-mount` ：在查找文件时不跨越文件系统mount点。
+### xargs（推荐，更高效）
+
 ```bash
-find . -name "*.XC" -mount –print
+# 在所有 .c 文件中搜索关键字
+find . -name "*.c" | xargs grep "TODO"
+
+# 删除所有 core dump 文件
+find / -name "core" | xargs rm -f
+
+# 查看文件类型
+find . -type f | xargs file
 ```
-从当前目录开始查找位于本文件系统中文件名以XC结尾的文件（不进入其他文件系统）。
 
-- `-follow` ：如果find命令遇到符号链接文件，就跟踪至链接所指向的文件。
+`xargs` 比 `-exec` 更高效：`-exec` 对每个文件启动一个进程，`xargs` 批量处理。
 
+## 实用组合
 
-3、find与xargs
-
-在使用find命令的`-exec`选项处理匹配到的文件时，find命令将所有匹配到的文件一起传递给exec执行。但有些系统对能够传递给exec的命令长度有限制，这样在find命令运行几分钟之后，就会出现溢出错误。错误信息通常是"参数列太长"或"参数列溢出"。这就是xargs命令的用处所在，特别是与find命令一起使用。
-
-find命令把匹配到的文件传递给xargs命令，而xargs命令每次只获取一部分文件而不是全部，不像`-exec`选项那样。这样它可以先处理最先获取的一部分文件，然后是下一批，并如此继续下去。
-
-在有些系统中，使用`-exec`选项会为处理每一个匹配到的文件而发起一个相应的进程，并非将匹配到的文件全部作为参数一次执行；这样在有些情况下就会出现进程过多，系统性能下降的问题，因而效率不高；
-
-而使用xargs命令则只有一个进程。另外，在使用xargs命令时，究竟是一次获取所有的参数，还是分批取得参数，以及每一次获取参数的数目都会根据该命令的选项及系统内核中相应的可调参数来确定。
-
-来看看xargs命令是如何同find命令一起使用的，并给出一些例子。
 ```bash
-find . -type f -print | xargs file
-```
-查找系统中的每一个普通文件，然后使用xargs命令来测试它们分别属于哪类文件。
-```bash
-find / -name "core" -print | xargs echo "" >/tmp/core.log
-```
-在整个系统中查找内存信息转储文件(core dump)，然后把结果保存到/tmp/core.log文件中。
-```bash
-find . -type f -print | xargs grep "hostname"
-```
-用grep命令在所有的普通文件中搜索hostname这个词。
-```bash
-find ./ -mtime +3 -print | xargs rm -f –r
-```
-删除3天以前的所有东西（`find . -ctime +3 -exec rm -rf {} \;`）
-```bash
-find ./ -size 0 | xargs rm -f &
-```
-删除文件大小为零的文件。
+# 查找最近 1 小时修改的 .py 文件
+find . -name "*.py" -mmin -60
 
-find命令配合使用exec和xargs可以使用户对所匹配到的文件执行几乎所有的命令。
+# 统计代码行数
+find . -name "*.cpp" | xargs wc -l
+
+# 查找大于 1G 的文件
+find / -type f -size +1G 2>/dev/null
+
+# 按修改时间排序
+find . -type f -printf '%T@ %p\n' | sort -rn | head -20
+```

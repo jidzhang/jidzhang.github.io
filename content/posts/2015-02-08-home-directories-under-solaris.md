@@ -1,33 +1,57 @@
 ---
-title: "Home directories under solaris"
+title: "Solaris 用户主目录管理"
 date: 2015-02-08
 draft: false
 slug: "home-directories-under-solaris"
 categories:
-  - ""
+  - "Solaris"
 ---
 
-Under Solaris, home directories are conventionally kept on one of two places,/homeor/export/home. The/homedirectory isunder control of the automounter and only the automounter can create directories there. The/export/homedirectory is where users home directories can be created by the system administrator.
+## 背景
 
-To create an account for user 'oops' where the UID is 400 and users home directory is not automounted:
+Solaris 中用户主目录有两个位置：
 
-    useradd -u 400 -g user -c useroops -m -d /export/home/oops oops
-    passwd oops(To set the password)
-    chown oops /export/home/oops
-    chgrp user /export/home/oops
+- **`/home`** — 由 automounter（自动挂载器）控制，管理员不能直接在此创建目录
+- **`/export/home`** — 管理员可以在此创建用户主目录
 
-To create an account for 'oops' where the home directory is automounted andthe mount point for/homeis/etc/auto_home:
+## 方式一：本地主目录（不使用 automounter）
 
-    useradd -u 400 -g user -c useroops oops
-    passwd oops(To set the password)
-    mkdir /export/home/oops
-    chown oops /export/home/oops
-    chgrp user /export/home/oops
-    
-    vi /etc/auto_homeand add the line:
+```bash
+# 创建用户
+useradd -u 400 -g user -c "user oops" -m -d /export/home/oops oops
 
-    oops remotehost:/home/&
+# 设置密码
+passwd oops
 
-This sets the user oops' home directory to/home/oopsexported from a remote host.
+# 设置权限
+chown oops /export/home/oops
+chgrp user /export/home/oops
+```
 
-From : [Unix Workstation Administration Tasks](http://ibgwww.colorado.edu/~lessem/psyc5112/usail/tasks/toc.html)
+`-m` 参数会自动创建主目录。
+
+## 方式二：自动挂载主目录（NFS）
+
+```bash
+# 创建用户（不指定 -d，默认使用 /home/oops）
+useradd -u 400 -g user -c "user oops" oops
+
+# 设置密码
+passwd oops
+
+# 手动创建实际目录
+mkdir /export/home/oops
+chown oops /export/home/oops
+chgrp user /export/home/oops
+
+# 配置 automounter
+vi /etc/auto_home
+# 添加一行：
+# oops  remotehost:/home/&
+```
+
+`remotehost:/home/&` 表示用户 oops 的主目录从远程主机挂载，`&` 是用户名的通配符。
+
+---
+
+*参考：[Unix Workstation Administration Tasks](http://ibgwww.colorado.edu/~lessem/psyc5112/usail/tasks/toc.html)*

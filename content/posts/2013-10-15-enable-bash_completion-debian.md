@@ -1,5 +1,5 @@
 ---
-title: "Debian开启/完善bash_completion"
+title: "Debian 开启 bash_completion 自动补全"
 date: 2013-10-15
 draft: false
 slug: "enable-bash_completion-debian"
@@ -7,26 +7,22 @@ categories:
   - "Linux"
 ---
 
-真心喜欢Debian系统，系统非常稳定而且各方面的技术材料也丰富。但是有些配置还是需要自己搞定。下面是一个tips：<br/>
+## 问题
 
-**完善bash的自动补全功能，即bash_completion**
+Debian 默认的 bash 自动补全功能不完整——按 Tab 只能补全文件名和命令名，无法补全 `apt-get` 的子命令、`systemctl` 的服务名等。
 
-（1）为什么做？
+## 原因
 
-因为系统默认的自动补全功能不完整，甚至是没有。
+bash_completion 包其实已经预装了，只是默认被注释掉了。
 
-（2）怎么做？下面是具体的步骤：
+## 解决方法
 
-* 安装bash_completion包：
+### 方法一：全局生效（需要 root）
+
+编辑 `/etc/bash.bashrc`，找到被注释掉的这段代码：
+
 ```bash
-apt-get install bash_completion
-```
-
-如果已安装可跳过。
-
-* 修改bashrc，如果你能获得root权限，那么你可以直接改 `/etc/bash.bashrc`，把
-```bash
-#if ! shopt -oq posix; then
+# if ! shopt -oq posix; then
 #   if [ -f /usr/share/bash-completion/bash_completion ]; then
 #      . /usr/share/bash-completion/bash_completion
 #   elif [ -f /etc/bash_completion ]; then
@@ -35,7 +31,16 @@ apt-get install bash_completion
 # fi
 ```
 
-每一行前面的#去掉，然后保存重新登录一下系统即可。
-如果不能获得root权限，那就把上面的一段文字复制到 `~/.bashrc`。
+去掉每行前面的 `#`，保存，重新登录即可。
 
-（3）最后，其实我们什么都没有做就实现了这个很爽的东西，我们只是把默认关闭的东西打开罢了。*Enjoy your Debian OS ...*
+### 方法二：仅当前用户
+
+把上面取消注释后的代码段追加到 `~/.bashrc` 末尾，然后执行：
+
+```bash
+source ~/.bashrc
+```
+
+## 验证
+
+输入 `apt-get in` 然后按 Tab，应该能自动补全为 `apt-get install`。

@@ -1,5 +1,5 @@
 ---
-title: "touch : 更新时间戳或创建空文件"
+title: "touch 命令：创建空文件或更新时间戳"
 date: 2015-03-05
 draft: false
 slug: "howto-touch-command"
@@ -7,15 +7,31 @@ categories:
   - "Linux"
 ---
 
-touch – change file timestamps（更新时间戳）
+## 功能
 
-用法：touch [option] filename 
+`touch` 有两个用途：
 
-说明：
+1. **创建空文件** — 如果文件不存在，创建一个大小为 0 的空文件
+2. **更新时间戳** — 如果文件已存在，更新其访问时间和修改时间为当前时间
 
-touch命令主要有两个作用
+## 常用示例
 
-* 更新文件的修改时间和访问时间，
-* 若filename指定的文件不存在，则创建空文件 
+```bash
+# 创建空文件
+touch newfile.txt
 
-关于touch的option的详细描述请参考在线手册页。
+# 同时创建多个文件
+touch file1.txt file2.txt file3.txt
+
+# 更新已有文件的时间戳
+touch existing.txt
+
+# 只更新访问时间（不修改 mtime）
+touch -a file.txt
+
+# 只更新修改时间（不修改 atime）
+touch -m file.txt
+
+# 设置为指定时间（格式：YYYYMMDDhhmm）
+touch -t 202604011200 file.txt
+```

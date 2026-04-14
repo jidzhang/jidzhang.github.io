@@ -1,5 +1,5 @@
 ---
-title: "C/C++ Linux 程序员必须了解的 10 个工具"
+title: "C/C++ Linux 程序员必知的 10 类工具"
 date: 2015-04-09
 draft: false
 slug: "linux-codess-10-tools"
@@ -7,61 +7,75 @@ categories:
   - "Linux"
 ---
 
+## 1. 基本命令
 
-想成为 Linux 下专业的 C/C++ 程序员，下面工具都是必须要了解的。
+Shell 操作是 Linux 开发的基础。掌握文件操作、管道、重定向、文本处理（grep/sed/awk）等。
 
-1. 基本命令
+## 2. 编辑器 — Vim / Emacs
 
-http://mally.stanford.edu/~sr/computing/basic-unix.html
-http://pangea.stanford.edu/computing/unix/shell/commands.php
-http://infohost.nmt.edu/tcc/help/unix/unix_cmd.html
+Linux 下两大经典编辑器。至少精通一个，推荐 Vim（服务器环境几乎一定有）。
 
-2. 编辑器 – vi, Emacs
+## 3. 构建工具 — Make / CMake
 
-http://www.atmos.albany.edu/deas/atmclasses/atm350/vi_cheat_sheet.pdf
-http://cmgm.stanford.edu/classes/unix/emacs.html
+- **Make**：经典的构建自动化工具，通过 Makefile 定义编译规则
+- **CMake**：跨平台构建系统，自动生成 Makefile 或 VS 项目文件，现代项目首选
 
-3. 构建工具 – make/Cmake
+## 4. 调试器 — GDB
 
-http://frank.mtsu.edu/~csdept/FacilitiesAndResources/make.htm
-http://www.cmake.org/cmake/help/cmake_tutorial.html
+命令行调试器，支持断点、单步、变量查看、内存检查。核心命令：
 
-4. 调试器 – gdb
+```bash
+gdb ./program
+(gdb) break main
+(gdb) run
+(gdb) next
+(gdb) print variable
+(gdb) backtrace
+```
 
-http://www.cs.cmu.edu/~gilpin/tutorial/
+## 5. 版本控制 — Git
 
-5. 版本控制 – cvs, svn, git
+现代开发必备。SVN 和 CVS 已逐渐被 Git 取代。
 
-http://mrsrl.stanford.edu/~brian/cvstutorial/
-http://www.cs.ubc.ca/~vailen/svn_howto.htm
-http://maverick.inria.fr/~Xavier.Decoret/resources/svn/index.html
-http://www.vogella.com/articles/Git/article.html
+```bash
+git init / git clone
+git add / git commit / git push
+git branch / git merge
+```
 
-6. 代码查看工具 – ctags, cscope
+## 6. 代码导航 — ctags / cscope
 
-http://www.linux-tutorial.info/modules.php?name=Howto&pagename=C-editing-with-VIM-HOWTO/random.html
-http://www.cs.washington.edu/education/courses/cse451/12sp/tutorials/tutorial_cscope.html
-http://cscope.sourceforge.net/cscope_vim_tutorial.html
+在大型代码库中快速定位函数定义、调用关系。
 
-7. 进程间通讯机制
+```bash
+ctags -R .              # 生成标签文件
+cscope -Rbkq            # 建立索引
+```
 
-http://tldp.org/LDP/tlk/ipc/ipc.html
+配合 Vim 使用，跳转代码效率极高。
 
-8. 多线程库 – Pthreads, BOOST library
+## 7. 进程间通信（IPC）
 
-https://computing.llnl.gov/tutorials/pthreads/
-http://ashishgrover.com/boost-multi-threadingfor-c/
+Linux 提供多种 IPC 机制：管道、信号、消息队列、共享内存、信号量、Socket。理解这些是系统级编程的基础。
 
-9. 内存工具 – Purify, Valgrind
+## 8. 多线程 — Pthreads / C++ Thread
 
-http://www.cprogramming.com/debugging/valgrind.html
-http://pages.cs.wisc.edu/~hasti/cs368/resources/purify.html
+- **POSIX Threads (pthreads)**：C 语言多线程标准接口
+- **C++11 std::thread**：现代 C++ 内置线程库
+- **Boost.Thread**：C++11 之前的多线程方案
 
-10. GUI – Qt
+## 9. 内存检测 — Valgrind
 
-http://zetcode.com/gui/qt4/introduction/
-http://www.digitalfanatics.org/projects/qt_tutorial/
-http://doc.trolltech.com/4.3/tutorial.html
+检测内存泄漏、越界访问、未初始化读取等问题：
 
+```bash
+valgrind --leak-check=full ./program
+```
 
-转自[OSChina.net](http://www.oschina.net/news/32307/10-things-c-c-linux-programmer-must-know)
+## 10. GUI 开发 — Qt
+
+跨平台 C++ GUI 框架，支持信号/槽机制、网络、数据库、多线程等。Linux 下最成熟的 GUI 方案。
+
+---
+
+*参考：[OSChina](https://www.oschina.net/news/32307/10-things-c-c-linux-programmer-must-know)*
