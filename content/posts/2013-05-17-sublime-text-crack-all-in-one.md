@@ -51,6 +51,9 @@ cp ...
 objdump -d ST_file > st-crack.asm
 ```
 
+### <2> 汇总信息
+上一步得到了反汇编文件 st-crack.asm，接下来统一分析。
+
 ### <3> 分析st-crack.asm
 用编辑器打开st-crack.asm,然后搜索这个正则表达式
 ```

@@ -18,7 +18,7 @@ categories:
  * }QNode;   [>链队结点的类型<]
  * typedef struct
  * {
- *     QNode *font, *rear;
+ *     QNode *front, *rear;
  * }LQueue;    [>将头尾指针封装在一起的链队<]
  *
  * 设q是一个指向链队的指针，即LQueue *q. 各函数的功能如下：
@@ -43,7 +43,7 @@ typedef struct node
 }QNode;
 typedef struct
 {
-    QNode *font, *rear;
+    QNode *front, *rear;
 }LQueue;
 
 LQueue * Init_LQueue()
@@ -54,13 +54,13 @@ LQueue * Init_LQueue()
     p = (QNode*)malloc(sizeof(QNode));  /*申请头尾指针结点*/
     p->next = NULL;
 
-    q->font = q->rear = p;
+    q->front = q->rear = p;
     return q;
 }
 
 int Empty_LQueue(LQueue *q)
 {
-    if(q->font != q->rear)  return 0;
+    if(q->front != q->rear)  return 0;
     else    return 1;
 }
 
@@ -77,12 +77,12 @@ int Out_LQueue(LQueue *q, valuetype *x)
 {
     if(Empty_LQueue(q)) return 0;   /*空链队*/
     else{
-        QNode *p = q->font->next;
+        QNode *p = q->front->next;
         *x = p->data;
-        q->font->next = p->next;
+        q->front->next = p->next;
         free(p);
-        if (q->font->next == NULL)
-            q->rear = q->font;
+        if (q->front->next == NULL)
+            q->rear = q->front;
 
         return 1;
     }
@@ -105,3 +105,4 @@ int main()
     return 0;
 }
 ```
+

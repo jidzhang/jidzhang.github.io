@@ -15,7 +15,7 @@ categories:
  * 循环队列的类型定义如下：
  * typedef struct{
  *     valuetype data[MAXSIZE];    [>数据的存储区<]
- *     int font, rear;     [>队首队尾<]
+ *     int front, rear;     [>队首队尾<]
  *     int num;    [>队列中元素的个数<]
  * }Circular_Queue;
  * 循环队列常用函数如下：
@@ -33,14 +33,14 @@ categories:
 typedef int valuetype;
 typedef struct{
     valuetype data[MAXSIZE];    /*数据的存储区*/
-    int font, rear;     /*队首队尾*/
+    int front, rear;     /*队首队尾*/
     int num;    /*队列中元素的个数*/
 }Circular_Queue;
 
 Circular_Queue * Init_CirQueue()
 {
     Circular_Queue *q = (Circular_Queue*)malloc(sizeof(Circular_Queue));
-    q->font = q->rear = MAXSIZE-1;
+    q->front = q->rear = MAXSIZE-1;
     q->num = 0;
     return q;
 }
@@ -61,8 +61,8 @@ int Out_CirQueue(Circular_Queue *q, valuetype *x)
 {
     if(q->num == 0) return 0;   /*队空*/
     else{
-        *x = q->data[q->font];
-        q->font = (q->font+1)%MAXSIZE;
+        *x = q->data[q->front];
+        q->front = (q->front+1)%MAXSIZE;
         q->num--;
         return 1;
     }

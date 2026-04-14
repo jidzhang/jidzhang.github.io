@@ -38,7 +38,7 @@ min_int: 2147483648
 
 结果怎么会是这样呢？
 
-问题就出在：输出`MIN_INT`时，由于`MIN_INT`仅仅是个符号，在输出给cout时就按照Cpp的规则以长整数输出了，因此正确的办法是
+问题出在类型上：`~MAX_INT` 中 `MAX_INT` 是 `unsigned` 表达式，对 `unsigned` 取反得到的还是 `unsigned`，值为 `0x80000000`（即无符号的 2147483648）。`cout` 按 `unsigned` 输出，所以显示的不是 -2147483648。正确的办法是强制转换：
 
     cout << "max_int: " << (int)MAX_INT << "\n"
         << "min_int: " << (int)MIN_INT << endl;
@@ -50,6 +50,8 @@ min_int: 2147483648
 const int MAX_INT = ((unsigned)(-1))>>1;
 const int MIN_INT = ~MAX_INT;
 ```
+
+注意：这里的 `MAX_INT` 是 `const int`（有符号），与方案 (2) 中 `#define` 展开后的 `unsigned` 表达式不同。`~MAX_INT` 对有符号 `int` 取反，结果为 `-2147483648`，`printf` 用 `%d` 输出即可正确显示。
 
 示范代码如下：
 ```c

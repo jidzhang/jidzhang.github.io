@@ -62,7 +62,7 @@ int b_search(int *array, int low_index, int high_index, int key)
 {
     while(low_index<=high_index)
     {
-        int mid = (low_index+high_index)/2;
+        int mid = low_index+(high_index-low_index)/2;
         if (key==array[mid])
             return mid;
         else if (key < array[mid])
@@ -126,7 +126,7 @@ int b_search(int *array, int low_index, int high_index, int key)
         return -1;
     else
     {
-        int mid = (low_index+high_index)/2;
+        int mid = low_index+(high_index-low_index)/2;
         if (key == array[mid])
             return mid;
         else if (key < array[mid])

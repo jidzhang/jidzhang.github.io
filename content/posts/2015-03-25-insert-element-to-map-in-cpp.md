@@ -25,7 +25,7 @@ map<int, double> m2;
 m2.insert(make_pair(1,10.0));     //赋值
 m2.insert(make_pair(2,11.0));     //赋值
 m2.insert(make_pair(3,12.0));     //赋值
-m2.insert(make_pair(2,18.0)).first->second = 18;     //更新
+m2.insert(make_pair(2,18.0)).first->second = 18.0;     //更新
 ```
 
 其次,有必要定义一个函数,实现向map中高效的添加或更新元素.

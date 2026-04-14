@@ -11,7 +11,7 @@ categories:
 
 另外，为了达到最好的使用效果，请首先把C的开发文档提前安装上吧，命令：
 ```bash
-sudo apt-get install update
+sudo apt-get update
 sudo apt-get install manpages-dev glibc-doc
 ```
 
