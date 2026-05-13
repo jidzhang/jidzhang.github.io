@@ -46,7 +46,7 @@ Codex CLI ──Responses API──▶ 本地代理 (localhost:18765) ──Chat
 
 - Python 3.8+
 - 智谱 AI API Key（[点此获取](https://www.bigmodel.cn/glm-coding?ic=PUT51M7I5Q)）
-- 已安装 [OpenAI Codex CLI](https://github.com/openai/codex)
+- 已安装 [OpenAI Codex CLI](https://github.com/openai/codex) -- 安装命令（nodejs>=22）：`npm i -g @openai/codex`
 
 ### 第一步：启动代理
 
