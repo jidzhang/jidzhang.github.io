@@ -53,7 +53,10 @@ Codex CLI ──Responses API──▶ 本地代理 (localhost:18765) ──Chat
 ```bash
 git clone https://gitee.com/jidzhang/codex-glm-proxy.git
 cd codex-glm-proxy
-
+# GLM Coding Plan（默认使用Coding Plan，可以不填写）
+# export GLM_BASE_URL=https://open.bigmodel.cn/api/coding/paas/v4
+# GLM 通用API（按量计费）
+# export GLM_BASE_URL=https://open.bigmodel.cn/api/paas/v4
 export GLM_API_KEY="你的API密钥"
 python3 proxy.py
 ```
@@ -73,7 +76,7 @@ python3 proxy.py
 model_provider = "glm"
 model = "glm-5.1"
 
-model_catalog_json = "/你的用户目录/.codex/models.json"
+model_catalog_json = "./models.json"
 
 [model_providers.glm]
 name = "GLM via Proxy"
