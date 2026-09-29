@@ -15,6 +15,12 @@ menu:
 
 下面是我在 GitHub 上持续维护的几个重点项目，也欢迎到我的主页逛逛：[github.com/jidzhang](https://github.com/jidzhang)。
 
+### AI 编程工作台
+
+**[safe-zcode](https://github.com/jidzhang/ZCode)** — 安静、可控的 ZCode（[介绍文章](../posts/2026-09-29-safe-zcode/))
+
+智谱 ZCode 开源快照的个人加固分支：遥测默认归零、启动零后台联网、会话分享默认关闭、发往飞书/微信的内容先脱敏再发；更新走自家 GitHub Releases，日常包更新器整个拿掉。改动全部带“上游处置”标记，跟随上游升级无负担。下载见 [Releases](https://github.com/jidzhang/ZCode/releases)。
+
 ### AI 编码工具链
 
 **[codex-glm-proxy](https://github.com/jidzhang/codex-glm-proxy)** — 让 OpenAI Codex CLI 用上智谱 GLM
