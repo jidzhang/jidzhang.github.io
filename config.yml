@@ -43,6 +43,9 @@ menu:
     - name: 关于
       url: /about/
       weight: 5
+    - name: 打字练习
+      url: https://jidzhang.github.io/typing-practice/
+      weight: 6
 
 markup:
   highlight:
